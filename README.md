@@ -1,2 +1,2 @@
 # sem-V
-Fot 5th sem project
+For 5th sem project
