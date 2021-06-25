@@ -1,6 +1,8 @@
 <?php 
 	include "layout/header.php";
 	require_once "../app/init.php";
+	
+	// $Category->getAllCategories();
 
 ?>
 
@@ -68,7 +70,10 @@
 			</div>
 		</div>
 	</section><!--/slider-->
-	
+	<form action="index.php" method="POST">
+	<input type="text" name="selectedcategory" >
+	<input type="submit" value="submit" name="categorysearch">
+	</form>
 	<section>
 		<div class="container">
 			<div class="row">
@@ -89,10 +94,15 @@
 									<div class="panel-body">
 										<ul>
 											<?php 
-												$allproduct = $Products->getAllProducts();
+												// $allproduct = $Products->getAllProducts();
+												// $allcategories = $Category->getAllCategories();
+												if(isset($_POST['categorysearch'])){
+													$cat = $_POST['selectedcategory'];
+													$selectedcat = $Category->getSelectedCtegory($cat);
+												}
 											
-											foreach($allproduct as $product):?>
-												<li><a href='#'><?=$product['product_name'] ?></a></li>
+											foreach($selectedcat as $category):?>
+												<li><a href='#'><?=$category['description'] ?></a></li>
             
 											<?php endforeach; ?>
 										</ul>
