@@ -1,6 +1,6 @@
 <?php 
 
-require_once "dbh.php";
+require_once "Dbh.php";
 
 class Category extends Dbh {
     protected function dbGetAllCategories() {

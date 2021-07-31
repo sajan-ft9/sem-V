@@ -1,5 +1,5 @@
 <?php 
-    require_once "dbh.php";
+    require_once "Dbh.php";
 
     class Products extends Dbh {
         protected function dbGetSelectedProduct($productname) {
