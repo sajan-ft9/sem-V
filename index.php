@@ -184,13 +184,13 @@
                     <!-- ================= main slide ================= -->
                     <div class="owl-init slider-main owl-carousel" data-items="1" data-dots="false" data-nav="true">
                         <div class="item-slide">
-                            <img src="images/banners/slide1.jpg">
+                            <img src="images/items/5.jpg">
                         </div>
                         <div class="item-slide rounded">
-                            <img src="images/banners/slide2.jpg">
+                            <img src="images/items/6.jpg">
                         </div>
                         <div class="item-slide rounded">
-                            <img src="images/banners/slide3.jpg">
+                            <img src="images/items/7.jpg">
                         </div>
                     </div>
                     <!-- ============== main slidesow .end // ============= -->
@@ -229,7 +229,7 @@
     </section>
     <!-- ========================= SECTION MAIN END// ========================= -->
     <!-- ========================= Blog ========================= -->
-    <section class="section-content padding-y-sm bg">
+    <!-- <section class="section-content padding-y-sm bg">
         <div class="container">
             <header class="section-heading heading-line">
                 <h4 class="title-section bg">Featured Categories</h4>
@@ -244,8 +244,8 @@
                             </div>
                         </article>
                     </div>
-                    <!-- card.// -->
-                </div>
+                    card.// -->
+                <!-- </div>
                 <div class="col-md-4">
                     <div class="card-banner" style="height:250px; background-image: url('images/posts/2.jpg');">
                         <article class="overlay overlay-cover d-flex align-items-center justify-content-center">
@@ -254,9 +254,9 @@
                                 <a href="#" class="btn btn-warning btn-sm"> View All </a>
                             </div>
                         </article>
-                    </div>
+                    </div> -->
                     <!-- card.// -->
-                </div>
+                <!-- </div>
                 <div class="col-md-4">
                     <div class="card-banner" style="height:250px; background-image: url('images/posts/3.jpg');">
                         <article class="overlay overlay-cover d-flex align-items-center justify-content-center">
@@ -265,13 +265,13 @@
                                 <a href="#" class="btn btn-warning btn-sm"> View All </a>
                             </div>
                         </article>
-                    </div>
+                    </div> -->
                     <!-- card.// -->
-                </div>
+                <!-- </div>
 
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- ========================= Blog .END// ========================= -->
 
     <!-- ========================= SECTION CONTENT ========================= -->

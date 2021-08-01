@@ -1716,12 +1716,19 @@ article:after,
 .slider-main .owl-next {
   right: 0; }
 .slider-main .item-slide {
-  height: 325px; }
+  /* height: 400px; */
+  background-attachment: fixed;
+  background-repeat: no-repeat; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
   .slider-main .item-slide img {
-    min-width: 100%;
-    min-height: 100%;
-    -o-object-fit: cover;
-       object-fit: cover; }
+    min-width:100%;
+    min-height:100%;
+    -o-object-fit:cover;
+       object-fit:cover; }
 
 /* slide items  */
 .slide-items .owl-prev, .slide-items .owl-next {
