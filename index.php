@@ -128,7 +128,7 @@
         </section>
         <!-- header-main .// -->
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
             <div class="container">
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav" aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
