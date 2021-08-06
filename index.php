@@ -59,8 +59,8 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3">
                         <div class="brand-wrap">
-                            <img class="logo" src="images/logo-dark.png">
-                            <h2 class="logo-text">LOGO</h2>
+                            <img class="logo" src="images/projectlogo/logo.jpeg">
+                            <h2 class="logo-text">HOME-APPLIANCES</h2>
                         </div>
                         <!-- brand-wrap.// -->
                     </div>
