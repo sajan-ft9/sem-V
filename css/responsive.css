@@ -1,14 +1,5 @@
 @media (max-width: 1200px) {
-  /* tablet devices */ 
-  .section-header .logo, .header-main .logo {
-    max-height:200px;
-    width: 150px; }
-  .section-header .logo-text, .header-main .logo-text {
-    font-size: 24px; }
-  .section-header .brand-wrap, .section-header .search-wrap, .section-header .widget-header, .header-main .brand-wrap, .header-main .search-wrap, .header-main .widget-header {
-    margin-bottom: 1rem; } 
-
-}
+  /* tablet devices */ }
 @media (max-width: 992px) {
   /* small tablet devices */
   .slider-main .item-slide {
@@ -40,8 +31,8 @@
     margin-top: 5px; }
 
   .section-header .logo, .header-main .logo {
-    max-height:200px;
-    width: 150px; }
+    max-height: 30px;
+    width: auto; }
   .section-header .logo-text, .header-main .logo-text {
     font-size: 24px; }
   .section-header .brand-wrap, .section-header .search-wrap, .section-header .widget-header, .header-main .brand-wrap, .header-main .search-wrap, .header-main .widget-header {
