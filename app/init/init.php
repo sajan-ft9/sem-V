@@ -6,6 +6,6 @@ require_once "./App/controllers/ProductsController.php";
 
 
 $Products = new ProductsController();
-echo $Products->check();
+// echo $Products->check();
 $Categories = new CategoriesController();
-echo $Categories->check();
+// echo $Categories->check();
