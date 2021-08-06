@@ -60,7 +60,7 @@
                     <div class="col-lg-3">
                         <div class="brand-wrap">
                             <img class="logo" src="images/projectlogo/logo.jpeg">
-                            <h2 class="logo-text">HOME APPLIANCES</h2>
+                            <h2 class="logo-text">HOME-APPLIANCES</h2>
                         </div>
                         <!-- brand-wrap.// -->
                     </div>
