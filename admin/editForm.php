@@ -1,14 +1,15 @@
 <?php 
 
-require_once "templates/header.php";
-include "includes/class-autoload.inc.php";
+require_once "../templates/header.php";
+include "../includes/class-autoload.inc.php";
 
 $products = new Product();
 $product = $products->editProduct($_GET['id']);
-$name = $product['product_name'];
-$desc = $product['product_desc'];
-$price = $product['price'];
-$cat_id = $product['category_id'];
+$name = $product['pr_name'];
+$desc = $product['pr_desc'];
+$price = $product['pr_price'];
+$cat_id = $product['cat_id'];
+$qty = $product['pr_qty'];
 
 ?>
 
@@ -26,6 +27,8 @@ $cat_id = $product['category_id'];
                 <textarea class="form-control" type="text" name="p_desc" required><?=$desc?></textarea>
                 <label for="">Price</label>
                 <input class="form-control" type="number" name="price" value="<?=$price?>" required>
+                <label for="">Quantity</label>
+                <input class="form-control" type="number" name="qty" value="<?=$qty?>" required>
                 <label for="">Category</label>
                 <input class="form-control" type="number" name="category" value="<?=$cat_id?>" required>
                 <div class="modal-footer">
@@ -39,5 +42,5 @@ $cat_id = $product['category_id'];
 </div>
 <?php 
 
-require_once "templates/header.php";
+require_once "../templates/header.php";
 ?>

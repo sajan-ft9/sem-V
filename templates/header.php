@@ -11,4 +11,7 @@
     <title>CRUD</title>
   </head>
   <body>
+    <div class="logo">
+     <a href="index.php"><img src="../img/logo.jpeg" alt="Logo" height="100px"></a>
+    </div>
     <div class="container">

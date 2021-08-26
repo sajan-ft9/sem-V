@@ -1,6 +1,6 @@
 <?php 
 
-include "includes/class-autoload.inc.php";
+include "../includes/class-autoload.inc.php";
 
 $products = new Product();
 
@@ -9,8 +9,9 @@ if(isset($_POST['submit'])) {
     $desc = $_POST['p_desc'];
     $category = $_POST['category'];
     $price = $_POST['price'];
+    $qty = $_POST['qty'];
 
-    $products->addProduct($name, $desc, $category, $price);
+    $products->addProduct($name, $desc, $price, $qty, $category);
 
     header("Location: {$_SERVER['HTTP_REFERER']}");
 
@@ -22,10 +23,11 @@ else if(isset($_POST['update'])) {
     $desc = $_POST['p_desc'];
     $category = $_POST['category'];
     $price = $_POST['price'];
+    $qty = $_POST['qty'];
 
-    $products->updateProduct($name, $desc, $category, $price, $id);
+    $products->updateProduct($name, $desc, $price, $qty, $category, $id);
 
-    header("Location: {$_SERVER['HTTP_ORIGIN']}/project");
+    header("Location: {$_SERVER['HTTP_ORIGIN']}/project/admin");
 
 }
 
@@ -34,5 +36,5 @@ elseif ($_GET['send'] === 'del') {
 
     $products->delProduct($id);
 
-    header("Location: {$_SERVER['HTTP_ORIGIN']}/project");
+    header("Location: {$_SERVER['HTTP_ORIGIN']}/project/admin");
 }

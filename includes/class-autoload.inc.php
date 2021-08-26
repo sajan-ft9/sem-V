@@ -8,7 +8,11 @@ function autoload ($className) {
     $fileName = $path . $className . $ext;
     
     if(!file_exists($fileName)) {
-        return false;
+        $fileName = '../'. $path . $className. $ext;
+        // echo $fileName;
+        if(!file_exists($fileName)){
+            return false;
+        }
     }
 
     include_once $fileName;
