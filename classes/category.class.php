@@ -1,5 +1,5 @@
 <?php
-
+include "../classes/dbh.class.php";
 class Category extends Dbh {
 
     public function getCategories() {
@@ -20,6 +20,12 @@ class Category extends Dbh {
         while($result = $stmt->fetchAll()){
             return $result;
         }
+    }
+
+    public function addCategory($name, $desc) {
+        $sql = "INSERT INTO categories (ct_name, ct_desc) VALUES (?, ?)";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$name, $desc]);
     }
 
 }

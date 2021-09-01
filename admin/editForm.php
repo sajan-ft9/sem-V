@@ -1,46 +1,140 @@
-<?php 
-
-require_once "../templates/header.php";
-include "../includes/class-autoload.inc.php";
+<?php require_once "layout/header.php"; 
+require_once "../includes/init.php";
 
 $products = new Product();
 $product = $products->editProduct($_GET['id']);
-$name = $product['pr_name'];
-$desc = $product['pr_desc'];
-$price = $product['pr_price'];
-$cat_id = $product['cat_id'];
-$qty = $product['pr_qty'];
 
+  // Update Product
+  if(isset($_POST['update'])) {
+    $id = $_GET['id'];
+    $err = "";
+    $name = clean($_POST['p_name']);
+    $desc = clean($_POST['p_desc']);
+    $category = clean($_POST['category']);
+    $price = clean($_POST['price']);
+    $qty = clean($_POST['qty']);
+    $brand = clean($_POST['brand']);
+    $filename = $_FILES["fileToUpload"] ["name"];
+    $tempname = $_FILES["fileToUpload"] ["tmp_name"];
+    $img_del = $_POST['del_img'];
+
+    if(empty($name)){
+      $err .= "Name required<br>";
+    }else {
+      if(!preg_match("/^[a-zA-Z0-9-' ]{3,25}$/", $name)) {
+        $err .= "Name can only use(- and alphanumeric 3-25 characters)<br>";
+      }
+    }
+
+    if(empty($desc)){
+      $err .= "Description required<br>";
+    }else{
+      if(strlen($desc) >= 254 ) {
+        $err .= "Too long description<br>";
+      }
+    }
+
+    if(empty($category)) {
+      $err .= "Category required<br>";
+    }
+
+    if(empty($price)) {
+      $err .= "Price required<br>";
+    }else{
+      if($price < 0){
+        $err .= "Price cannot be negative.<br>";
+      }
+      elseif($price > 100000000) {
+        $err .= "Expensive. Try lowering price<br>";
+      }
+    }
+    
+    if(empty($qty)) {
+      $err .= "Quantity required<br>";
+    }else{
+      if($qty < 0){
+        $err .= "Quantity cannot be negative.<br>";
+      }elseif($qty > 100000000) {
+        $err .= "Too much quantity product<br>";
+      }
+    }
+
+
+    if(empty($brand)) {
+      $err .= "Brand required<br>";
+    }
+
+    if(empty($filename)) {
+      $err .= "Image required<br>";
+    }else {
+      $imageFileType = strtolower(pathinfo($filename,PATHINFO_EXTENSION)); //gives extension
+      if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+        $err .= "Sorry, only JPG, JPEG, PNG files are allowed.<br>";
+      }
+    }
+
+    if(!empty($err)){ 
+      echo "<p style='color:red;'>Error: $err</p>";
+    }
+
+    if(empty($err)){
+        $newFileName = uniqid('', true) . "." . $imageFileType;
+        $fileDestination = "uploads/".$newFileName;
+    
+        $products->updateProduct($name, $desc, $newFileName, $price, $qty, $category, $brand, $id);
+        
+        move_uploaded_file($tempname, $fileDestination);
+  
+        unlink("uploads/$img_del");
+    
+        echo "<script>window.location.replace('index.php')</script>";
+        die;
+    }
+  
+  }
+  // End update Product
 ?>
+<h1 class="mt-4">Edit Product</h1>
 
-<div class="text-center my-4">
-    <h3>Edit Post</h3>
-</div>
+        <!-- Product Update form -->
 <div class="row">
     <div class="col-md-7 mx-auto">
-        <!-- form edit -->
-    <form action="post.process.php?id=<?=$_GET['id']?>" method="POST">
+    <form action="editForm.php?id=<?=$_GET['id']?>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
+                <input type="hidden" name="del_img" value="<?=$product['pr_img']?>">
                 <label for="">Product Name</label>
-                <input class="form-control" type="text" name="p_name" value="<?=$name?>" required>
+                <input class="form-control" type="text" name="p_name" value="<?=$product['pr_name']?>" required>
                 <label for="">Description</label>
-                <textarea class="form-control" type="text" name="p_desc" required><?=$desc?></textarea>
+                <textarea class="form-control" type="text" name="p_desc" required><?=$product['pr_desc']?></textarea>
                 <label for="">Price</label>
-                <input class="form-control" type="number" name="price" value="<?=$price?>" required>
+                <input class="form-control" type="number" name="price" value="<?=$product['pr_price']?>" required>
                 <label for="">Quantity</label>
-                <input class="form-control" type="number" name="qty" value="<?=$qty?>" required>
+                <input class="form-control" type="number" name="qty" value="<?=$product['pr_qty']?>" required>
+                <label for="">Brand</label>
+                <input class="form-control" type="text" name="brand" value="<?=$product['pr_brand']?>" required>
                 <label for="">Category</label>
-                <input class="form-control" type="number" name="category" value="<?=$cat_id?>" required>
+                <select title="Previous is red in color" class="form-control" name="category" id="" required>
+                    <option style="color:red;" value="<?=$product['cat_id']?>" selected><?=$product['ct_name']?></option>
+                    <?php
+                        $categories = new Category();
+                        if($categories->getCategories()):
+                            foreach($categories->getCategories() as $category):
+                        ?>
+                        <option value="<?=$category['ct_id']?>"><?=$category['ct_name']?></option>
+                        <?php
+                            endforeach;
+                        endif;
+                    ?>
+                </select>
+                <label for="">Change Product Image</label>
+                <input class="form-control" type="file" name="fileToUpload" required>
                 <div class="modal-footer">
                 <a href="index.php" type="button" class="btn btn-secondary">Close</a>
                 <button type="submit" name='update' class="btn btn-primary">Update Product</button>
                 </div>
             </div>
         </form>
-
     </div>
 </div>
-<?php 
-
-require_once "../templates/header.php";
-?>
+<!-- End Product Update form -->
+<?php require_once "layout/footer.php" ?>
