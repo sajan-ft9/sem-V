@@ -1,18 +1,6 @@
 <?php 
 
 class Dbh {
-    //awd
-    // private $host = "fdb29.awardspace.net";
-    // private $user = "3659953_project";
-    // private $pwd = "S@jan999";
-    // private $dbName = "3659953_project";
-
-    //khadkasajan
-    // private $host = "sql300.unaux.com";
-    // private $user = "unaux_29463321";
-    // private $pwd = "S@jan999";
-    // private $dbName = "unaux_29463321_project";
-
 
     // localhost
     private $host = "localhost";
