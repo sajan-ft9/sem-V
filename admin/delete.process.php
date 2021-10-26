@@ -1,6 +1,6 @@
 <?php 
 
-include "../includes/init.php";
+require_once "../includes/init.php";
 
 $products = new Product();
 
@@ -12,7 +12,7 @@ if ($_GET['send'] === 'del') {
 
     unlink("uploads/$img_del");
 
-    header("Location: {$_SERVER['HTTP_ORIGIN']}/project/admin");
+    header("Location:index.php");
     // header("Location: {$_SERVER['HTTP_ORIGIN']}/admin");
     die;
 }

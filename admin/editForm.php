@@ -1,4 +1,6 @@
-<?php require_once "layout/header.php"; 
+<?php 
+$title = "Edit";
+require_once "layout/header.php"; 
 require_once "../includes/init.php";
 
 $products = new Product();
@@ -64,9 +66,7 @@ $product = $products->editProduct($_GET['id']);
       $err .= "Brand required<br>";
     }
 
-    if(empty($filename)) {
-      $err .= "Image required<br>";
-    }else {
+    if(!empty($filename)) {
       $imageFileType = strtolower(pathinfo($filename,PATHINFO_EXTENSION)); //gives extension
       if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
         $err .= "Sorry, only JPG, JPEG, PNG files are allowed.<br>";
@@ -78,6 +78,7 @@ $product = $products->editProduct($_GET['id']);
     }
 
     if(empty($err)){
+      if(!empty($filename)){
         $newFileName = uniqid('', true) . "." . $imageFileType;
         $fileDestination = "uploads/".$newFileName;
     
@@ -89,6 +90,12 @@ $product = $products->editProduct($_GET['id']);
     
         echo "<script>window.location.replace('index.php')</script>";
         die;
+      }else{
+        $products->updateProduct($name, $desc, $img_del, $price, $qty, $category, $brand, $id);
+        echo "<script>window.location.replace('index.php')</script>";
+        die;
+
+      }
     }
   
   }
@@ -117,8 +124,8 @@ $product = $products->editProduct($_GET['id']);
                     <option style="color:red;" value="<?=$product['cat_id']?>" selected><?=$product['ct_name']?></option>
                     <?php
                         $categories = new Category();
-                        if($categories->getCategories()):
-                            foreach($categories->getCategories() as $category):
+                        if($categories->getAll()):
+                            foreach($categories->getAll() as $category):
                         ?>
                         <option value="<?=$category['ct_id']?>"><?=$category['ct_name']?></option>
                         <?php
@@ -126,8 +133,9 @@ $product = $products->editProduct($_GET['id']);
                         endif;
                     ?>
                 </select>
-                <label for="">Change Product Image</label>
-                <input class="form-control" type="file" name="fileToUpload" required>
+                Old Image: <br><input type="image" name="previmg" src="uploads/<?=$product['pr_img']?>" alt="img" height="100px">
+                <br><label for="">Change Product Image</label>
+                <input class="form-control" type="file" name="fileToUpload">
                 <div class="modal-footer">
                 <a href="index.php" type="button" class="btn btn-secondary">Close</a>
                 <button type="submit" name='update' class="btn btn-primary">Update Product</button>

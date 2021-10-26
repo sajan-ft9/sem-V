@@ -3,15 +3,27 @@
 if(!isset($_GET['id'])){
     header("location:index.php");
 }
-include "layout/header.php"; 
-include "../includes/init.php";
+$title = "Category";
+require_once "layout/header.php"; 
+require_once "../includes/init.php";
 
 $category = new Category();
 $result = $category->selectedCategory($_GET['id']);
 
 ?>
+<div class="d-flex flex-row">
+  <div class="p-2">
+  <h1 class="mt-4"><?=$result[0]["ct_name"]?></h1>
+  </div>
 
-<h1 class="mt-4"><?=$result[0]["ct_name"]?></h1>
+</div>
+<div class="d-flex flex-row-reverse">
+  <div class="p-2">
+<a href="allcat.php" class="btn btn-info d-flex justify-content-end">Go Back</a>
+
+  </div>
+  
+</div>
     <div class="mt-5">
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php 
@@ -19,8 +31,8 @@ $result = $category->selectedCategory($_GET['id']);
                 foreach ($result as $category):?>
                     <div class="col">
                         <div class="card">
-                        <img class="card-img-top" src="uploads/<?=$category['pr_img']?>" alt="Product Image">
-                            <div class="card-body">
+                        <img class="card-img-top" src="uploads/<?=$category['pr_img']?>" alt="Product Image" height="300px">
+                            <div class="card-body" height="200px">
                                 <h5 class="card-title"><?=$category['pr_name']?></h5>
                                 <p class="card-text"><?=$category['pr_desc']?></p>
                             </div>
@@ -30,12 +42,18 @@ $result = $category->selectedCategory($_GET['id']);
                             </div>
                         </div>
                     </div>   
-        <?php 
+          
+    <?php 
                 endforeach;
             else:
-                echo "No data";
+                echo "
+          <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+          <strong>No Products available for this category!</strong> 
+          <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+          </div>
+          <a href='allcat.php' class='btn btn-info'>Go Back</a>";
             endif;
         ?>
+              </div>
     </div>
-    </div>
-<?php include "layout/footer.php"; ?>
+<?php require_once "layout/footer.php"; ?>
