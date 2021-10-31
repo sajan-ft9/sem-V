@@ -11,6 +11,15 @@ class Product extends Dbh {
         }
     }
 
+    public function selected($id) {
+        $sql = "SELECT * FROM `products` INNER JOIN categories WHERE cat_id = categories.ct_id AND pr_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+
+        $result = $stmt->fetch();
+        return $result;
+    }
+
     public function addProduct($name, $desc, $image, $price, $qty, $category, $brand) {
         $sql = "INSERT INTO products (pr_name, pr_desc, pr_img, pr_price, pr_qty, cat_id, pr_brand) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt= $this->connect()->prepare($sql);
@@ -36,5 +45,44 @@ class Product extends Dbh {
         $sql = "DELETE FROM products WHERE pr_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
+    }
+
+    // public function getRating($id) {
+    //     $sql = "SELECT * FROM `products` INNER JOIN rating WHERE pr_id = rating.product_id AND pr_id = ?";
+    //     $stmt = $this->connect()->prepare($sql);
+    //     $stmt->execute([$id]);
+    //     while($result = $stmt->fetchAll()) {
+    //         return $result;
+    //     }
+    // }
+
+    public function getRating($id) {
+        $sql = "SELECT * FROM rating WHERE product_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+        while($result = $stmt->fetchAll()) {
+           return $result;
+        }
+    }
+
+    public function getStar($id){
+        if(is_array($this->getRating($id))){
+            $total = count($this->getRating($id));            
+            $rated = 0;
+            foreach($this->getRating(32) as $prod){
+                // echo "<br>".$prod['rate_points'];
+                $rated = $rated + $prod['rate_points'];
+            }
+            // echo "<br>";
+            // echo $rated;
+            // echo "<br>";
+    
+            $percent = ($rated/($total*5))*100;
+            return $percent;
+        }
+        else{
+            return $percent= 0; 
+        }
+        
     }
 }

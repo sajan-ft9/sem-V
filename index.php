@@ -1,1 +1,3 @@
-<a href="admin/index.php">admin</a>
+<?php 
+    header("location:public/");
+?>

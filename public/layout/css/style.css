@@ -1,0 +1,56 @@
+.num {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: -8px;
+    left: 18px;
+    width: 15px;
+    height: 15px;
+    font-size: 8px;
+    background-color: #67971f;
+    color: white
+}
+
+a.fas {
+    position: relative;
+    font-size: 20px;
+    text-decoration: none;
+    color: black
+}
+
+
+.fas.fa-phone {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #67971f
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+.collapse.show{
+    height: 430px;
+    overflow-y: scroll;
+}
+
