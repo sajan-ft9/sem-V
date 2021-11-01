@@ -40,7 +40,7 @@ $result = $category->selectedCategory($_GET['id']);
                         <div class="p-about">
                             <p><?=$category['pr_desc']?></p>
                         </div>
-                        <div class="buttons d-flex flex-row gap-3 px-3"> <button class="btn btn-danger w-100"><a href="view.php" class="text-white">View</a></button> <button class="btn btn-outline-danger w-100">Buy Now</button> </div>
+                        <div class="buttons d-flex flex-row gap-3 px-3"> <button class="btn btn-danger w-100"><a href="view.php?id=<?=$category['pr_id']?>" class="text-white">View</a></button> <button class="btn btn-outline-danger w-100">Buy Now</button> </div>
                     </div>
                 </div>   
           

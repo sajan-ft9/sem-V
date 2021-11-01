@@ -17,5 +17,5 @@ $percent = ($rated/($total*5))*100;
 echo "<br>".$percent;
 echo "</pre>";
 echo "-------------------------<br>";
-$products->getStar(32);
+print_r($products->getStar(32)[0]);
 ?>

@@ -29,7 +29,13 @@
                             <div class="p-price d-flex flex-row"> <span>Rs</span>
                                 <h1><?=$product['pr_price']?></h1>
                             </div>
-                            <div class="heart"> <i class="fas fa-heart"></i> </div>
+                            <form action="wish.php" method="post">
+                                <div class="heart">
+                                <button type="submit" name="wish">
+                                    <i class="fas fa-heart"></i> 
+                                </button>
+                                </div>
+                            </form>
                         </div>
                         <div class="text-center p-image"> <img src="../admin/uploads/<?=$product['pr_img']?>"> </div>
                         <div class="p-about">

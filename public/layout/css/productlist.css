@@ -26,8 +26,14 @@
     color: red
 }
 
+.heart button {
+    border: none;
+    background-color: white;
+    opacity: 0;    
+}
+
 .heart i:hover {
-    color: red
+    color: red;
 }
 
 .p-image img {
@@ -39,6 +45,10 @@
 .card:hover .heart i {
     animation: heart 300ms ease-in forwards;
     animation-delay: 500ms
+}
+
+.card:hover .heart button {
+    opacity: 1;
 }
 
 .p-about {
@@ -82,6 +92,7 @@
 .card:hover .p-price {
     animation: onprice 500ms ease-in forwards
 }
+
 
 @keyframes onprice {
     0% {

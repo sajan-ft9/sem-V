@@ -31,8 +31,8 @@ $category = new Category;
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href="#">HOME</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">SHOP</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">PAGES</a> </li>
-                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">BLOG</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">CONTACT</a> </li>
+                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="../googlelogin/login.php">LOGIN</a> </li>
                 </ul>
                 <ul class="navbar-nav icons ms-auto mb-2 mb-lg-0">
                     <li class=" nav-item pe-3"> <a href="" class="fas fa-heart"> <span class="num rounded-circle">1</span> </a> </li>

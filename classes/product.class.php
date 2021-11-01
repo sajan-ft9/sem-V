@@ -65,6 +65,15 @@ class Product extends Dbh {
         }
     }
 
+    public function getComments($id) {
+        $sql = "SELECT * FROM `rating` inner JOIN customers WHERE customer_id = customers.id AND product_id = $id";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+        while($result = $stmt->fetchAll()) {
+           return $result;
+        }
+    }
+    
     public function getStar($id){
         if(is_array($this->getRating($id))){
             $total = count($this->getRating($id));            
@@ -76,12 +85,13 @@ class Product extends Dbh {
             // echo "<br>";
             // echo $rated;
             // echo "<br>";
+            $rating = $rated/$total;
     
             $percent = ($rated/($total*5))*100;
-            return $percent;
+            return ['percent'=>$percent, "rating"=>$rating, "total"=>$total];
         }
         else{
-            return $percent= 0; 
+            return ['percent'=>$percent=0]; 
         }
         
     }
