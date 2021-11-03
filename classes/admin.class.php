@@ -1,5 +1,5 @@
 <?php 
-
+require_once "../classes/dbh.class.php";
 class Admin extends Dbh {
 
     public function get($username) {

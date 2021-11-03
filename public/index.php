@@ -3,15 +3,15 @@
 ?>
 <link rel="stylesheet" href="layout/css/productlist.css">
 
-            <div class=" d-lg-flex flex-lg-row d-flex flex-column-reverse bg-light mt-5">
+            <div class=" d-lg-flex flex-lg-row d-flex flex-column-reverse bg-light mt-2">
                 <div class="p-5" id="2">
-                    <p class="p-green">FRUIT FRESH</p>
+                    <p class="p-green">DRINK FRESH</p>
                     <P class="fs-4 fw-bold">Whirpool</P>
-                    <p class="fs-4 fw-bold">10 ltrs</p>
+                    <p class="fs-4 fw-bold">50 ltrs</p>
                     <p class="text-muted mb-4">Free Pickup and Delivery Available</p>
                     <div class="btn btn-success px-4">SHOP NOW</div>
                 </div>
-                <div id="1"> <img src="../img/coverfridge.jpg" class="w-100 h-100" alt=""> </div>
+                <div id="1"> <img src="../img/pexels-junjie-xu-3028500.jpg" class="w-100 h-100" alt=""> </div>
             </div>
         </div>
         <div class="row g-1 mt-4 mb-2">

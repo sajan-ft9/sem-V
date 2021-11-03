@@ -1,4 +1,5 @@
 <?php  
+require_once "../classes/dbh.class.php";
 
 class Product extends Dbh {
     public function getProduct() {

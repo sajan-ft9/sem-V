@@ -1,3 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif
+}
+
+body {
+  background: #ecf0f3
+}
+
 .num {
     position: absolute;
     display: flex;
@@ -53,4 +64,13 @@ a.fas {
     height: 430px;
     overflow-y: scroll;
 }
-
+.google{
+  width: 200px; 
+  background:linear-gradient(to right, rgb(233, 95, 95), rgb(248, 180, 90));
+  padding: 5px;
+  border-radius: 10px;
+}
+.google:hover{
+  padding: 6px;
+  background: linear-gradient(to right, rgb(247, 109, 109), rgb(252, 202, 111));
+}

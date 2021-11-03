@@ -43,6 +43,7 @@
                             <i class="fa fa-star"></i>
                         </li>                    
                     </ul>  
+                    <p class="text">Qty: <?=$product['pr_qty']?></p>
                     <form class="mt-3" action="" method="post">
                         <?php 
                         if(isset($_POST['tocart'])){
