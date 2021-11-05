@@ -29,11 +29,21 @@ $category = new Category;
         <div class="container-fluid pe-lg-2 p-0"> <a class="navbar-brand fw-bold fs-3" href="index.php"><img src="../img/logo.jpeg" alt="Brand Logo" width="50px" >Home Appliances</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href="#">HOME</a> </li>
+                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href="index.php">HOME</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">SHOP</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">PAGES</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">CONTACT</a> </li>
+                    <?php 
+                        if(!isset($_SESSION['customer'])){
+                    ?>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="login.php">LOGIN</a> </li>
+                    <?php
+                        }else{
+                            ?>
+                            <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold text-danger" href="logout.php" onClick="return confirm('Confirm Logout')">LOGOUT</a> </li>
+                        <?php
+                        }
+                    ?>
                 </ul>
                 <ul class="navbar-nav icons ms-auto mb-2 mb-lg-0">
                     <li class=" nav-item pe-3"> <a href="" class="fas fa-heart"> <span class="num rounded-circle">1</span> </a> </li>

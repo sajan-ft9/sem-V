@@ -7,7 +7,7 @@ $title = "Category";
 require_once "layout/header.php"; 
 // require_once "../includes/init.php";
 
-$category = new Category();
+// $category = new Category();
 $result = $category->selectedCategory($_GET['id']);
 
 ?>

@@ -1,5 +1,9 @@
 <?php
-
+session_start();
+if(isset($_SESSION['customer'])){
+    header("location:index.php");
+    die;
+}
 require_once "../public/layout/header.php";
 
 if($_SERVER['REQUEST_METHOD'] = "POST"){
@@ -68,6 +72,7 @@ if($_SERVER['REQUEST_METHOD'] = "POST"){
                 <input class="form-control" type="password" name="cpassword" required>
                 <div class="mt-2 text-center bg-info">
                 <button style="width: 200px;" class="btn btn-outline-dark" type="submit" name="signup">Signup</button>
+                <p>Already have account?<a href="login.php">Login</a></p>
                 </div>
         </form>
         <div class="text-center"><h2>OR</h2></div>

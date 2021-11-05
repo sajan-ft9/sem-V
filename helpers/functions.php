@@ -23,6 +23,15 @@ function checkLogin() {
     }
 }
 
+function customerLogin(){
+    session_start();
+    if(isset($_SESSION['customer'])){
+
+    }else{
+        header("Location: ../public/login.php");
+    }
+}
+
 function otpGenerate() {
     $otp = random_int(100000, 999999);
     return $otp;

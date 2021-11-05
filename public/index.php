@@ -1,5 +1,10 @@
 <?php 
-    require_once "layout/header.php";
+require_once "../helpers/functions.php";
+// customerLogin();
+session_start();
+
+require_once "layout/header.php";
+
 ?>
 <link rel="stylesheet" href="layout/css/productlist.css">
 
