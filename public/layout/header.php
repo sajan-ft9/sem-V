@@ -30,11 +30,11 @@ $category = new Category;
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href="index.php">HOME</a> </li>
-                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">SHOP</a> </li>
+                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="cart.php">CART</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">PAGES</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">CONTACT</a> </li>
                     <?php 
-                        if(!isset($_SESSION['customer'])){
+                        if(!cLogged()){
                     ?>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="login.php">LOGIN</a> </li>
                     <?php
@@ -45,17 +45,32 @@ $category = new Category;
                         }
                     ?>
                 </ul>
-                <ul class="navbar-nav icons ms-auto mb-2 mb-lg-0">
-                    <li class=" nav-item pe-3"> <a href="" class="fas fa-heart"> <span class="num rounded-circle">1</span> </a> </li>
-                    <li class=" nav-item pe-3"> <a href="" class="fas fa-shopping-bag"> <span class="num rounded-circle">3</span> </a> </li>
-                    <li class=" nav-item"> <span class="">items:</span> <span class="fw-bold">$150.00</span> </li>
-                </ul>
+                <?php 
+                if(cLogged()){
+                    ?>
+                        <ul class="navbar-nav icons ms-auto mb-2 mb-lg-0">
+                            <li class=" nav-item pe-3"> <a href="wish.php" class="fas fa-heart"> <span class="num rounded-circle">1</span> </a> </li>
+                            <li class=" nav-item pe-3"> <a href="cart.php" class="fas fa-shopping-bag"> <span class="num rounded-circle">3</span> </a> </li>
+                            <li class=" nav-item"> <span class="">items:</span> <span class="fw-bold">$150.00</span> </li>
+                        </ul>
+                    <?php
+                }else{
+                    ?>
+                        <ul class="navbar-nav icons ms-auto mb-2 mb-lg-0">
+                            <li class=" nav-item pe-3"> <a href="wish.php" class="fas fa-heart"> <span class="num rounded-circle">1</span> </a> </li>
+                            <li class=" nav-item pe-3"> <a href="cart.php" class="fas fa-shopping-bag"> <span class="num rounded-circle">3</span> </a> </li>
+                            <!-- <li class=" nav-item"> <span class="">items:</span> <span class="fw-bold">$150.00</span> </li> -->
+                        </ul>
+                    <?php
+                }
+                ?>
+                
             </div>
         </div>
     </nav>
     <div class="row">
         <div class="col-lg-3 mb-lg-0 mb-2">
-            <p> <a class="btn btn-primary w-100 d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample"> <span class="fas fa-bars"><span class="ps-3">All Categories</span></span> <span class="fas fa-chevron-down"></span> </a> </p>
+            <p> <a  class="btn btn-primary w-100 d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample"> <span class="fas fa-bars"><span class="ps-3">All Categories</span></span> <span class="fas fa-chevron-down"></span> </a> </p>
             <div class="collapse show border" id="collapseExample">
                 <ul class="list-unstyled">
                     <?php 
@@ -88,10 +103,23 @@ $category = new Category;
                         <div class="btn btn-primary d-flex align-items-center justify-content-center"> SEARCH</div>
                     </div>
                 </div>
-                <div class="d-flex align-items-center ms-lg-auto mt-lg-0 mt-3 pe-2"> <span class=" me-2 fas fa-phone bg-light rounded-circle"></span>
+                <?php 
+                            if(cLogged()){
+                                $customer = new Customer();
+                                ?>
+                <div class="d-flex align-items-center ms-lg-auto mt-lg-0 mt-3 pe-2"> <span class=" me-2 fas fa-user bg-light rounded-circle"></span>
                     <div class="d-flex flex-column ps-2">
-                        <p class="fw-bold">+65.11.188.888</p>
-                        <p class="text-muted">support 24/7</p>
+                        
+                                <p class="fw-bold"><?=$customer->selected($_SESSION['customer'])['name']?></p>
+                                <?php
+                            }else{
+                                ?>
+                                <div class="d-flex align-items-center ms-lg-auto mt-lg-0 mt-3 pe-2"> <a href="login.php"><span class=" me-2 fas fa-user-slash bg-light rounded-circle"></span></a>
+                    <div class="d-flex flex-column ps-2">
+                                <?php
+                            }
+                        ?>
+
                     </div>
                 </div>
             </div>

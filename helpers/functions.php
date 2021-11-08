@@ -26,9 +26,18 @@ function checkLogin() {
 function customerLogin(){
     session_start();
     if(isset($_SESSION['customer'])){
-
+        return true;
     }else{
         header("Location: ../public/login.php");
+    }
+}
+
+function cLogged(){
+    // session_start();
+    if(isset($_SESSION['customer'])){
+        return true;
+    }else{
+        return false;
     }
 }
 
