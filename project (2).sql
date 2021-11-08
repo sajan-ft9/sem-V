@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2021 at 08:35 AM
+-- Generation Time: Nov 08, 2021 at 11:58 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -40,7 +40,34 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `email`, `otp`) VALUES
-(1, 'admin', '$2y$10$mRCVWIuN/Gr.7bxIzqzsLuLgAid61dGCBiHqWqVohzwrzKpDTE.LO', 'sajankhad2@gmail.com', 272861);
+(1, 'admin', '$2y$10$mRCVWIuN/Gr.7bxIzqzsLuLgAid61dGCBiHqWqVohzwrzKpDTE.LO', 'sajankhad2@gmail.com', 235336);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `customer_id` bigint(20) NOT NULL,
+  `qty` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `product_id`, `customer_id`, `qty`) VALUES
+(1, 32, 1, 1),
+(2, 32, 1, 5),
+(3, 36, 1, 3),
+(4, 35, 1, 1),
+(5, 32, 2, 5),
+(6, 32, 2, 1),
+(7, 32, 1, 1),
+(8, 37, 14, 3);
 
 -- --------------------------------------------------------
 
@@ -73,8 +100,19 @@ CREATE TABLE `customers` (
   `id` bigint(20) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `login_type` varchar(255) NOT NULL,
+  `contact` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `email`, `password`, `name`, `login_type`, `contact`) VALUES
+(1, 'sajankhad1@gmail.com', '$2y$10$obEmTRHHjTWJkE1LlZgxve25CWsYfGkB4ZRLZU11tpV.DnO1VZMP2', 'Ryan Jordan', 'custom', '9865284390'),
+(2, 'sajankhad2@gmail.com', '$2y$10$FpxO1WJqz6qGttqdjbzlAebXjvzhKrrZi3Ua3bWOcGFb0IGPipBP.', 'Sajan Khadka', 'custom', '9865284390'),
+(14, 'store.homeappliance@gmail.com', 'qwertyuiop', 'Home Appliance Store', 'gmail', '5435643534');
 
 -- --------------------------------------------------------
 
@@ -141,6 +179,12 @@ ALTER TABLE `admin`
   ADD UNIQUE KEY `username` (`username`);
 
 --
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
@@ -150,7 +194,8 @@ ALTER TABLE `categories`
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `products`
@@ -176,6 +221,12 @@ ALTER TABLE `admin`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -185,7 +236,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `products`
