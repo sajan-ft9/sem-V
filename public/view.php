@@ -51,10 +51,28 @@ session_start();
                             if(isset($_POST['tocart'])){
                                 if(is_numeric($_POST['quantity']) && ($_POST['quantity'] > 0)){
                                     $qty = clean($_POST['quantity']);
-                                    $cart = new Cart();
-                                    $cart->add($product['pr_id'], $_SESSION['customer_id'], $qty);
-                                    echo "<script>window.location.replace('cart.php')</script>";
-                                    die;
+                                    if($qty <= $product['pr_qty']){
+                                        $cart = new Cart();
+                                        $select = $cart->selected($product['pr_id'], $_SESSION['customer_id']);
+                                        if($select > 0){
+                                            if(($select['qty'] + $qty) <= $product['pr_qty']){
+                                                $cart->update($select['qty']+ $qty, $product['pr_id'], $_SESSION['customer_id']);
+                                                echo "<script>window.location.replace('cart.php')</script>";
+                                                die;
+                                            }else{
+                                                echo  "<p style='color:red'>Cart quantity exceeds stock.</p>";
+                                            }
+                                            
+                                        }else{
+                                            echo "none";
+                                            $cart->add($product['pr_id'], $_SESSION['customer_id'], $qty);
+                                            echo "<script>window.location.replace('cart.php')</script>";
+                                            die;
+                                        }    
+                                    }else{
+                                        echo  "<p style='color:red'>Selected quantity is more than stock.</p>";
+                                    }
+                                    
                                 }
                                 else{
                                     echo  "<p style='color:red'>Enter valid quantity</p>";
@@ -63,7 +81,7 @@ session_start();
                         }
                         ?>
                         <div class="btn btn-info" onclick="add()"><i class="fa fa-plus"></i></div> 
-                        <input style="width: 100px; background-color:white; padding-left:10px; border-radius:10px;" type="number" name="quantity" id="qty" placeholder="Qty" value="1" required>
+                        <input style="width: 80px; background-color:white; padding-left:5px; border-radius:10px;" type="tel" name="quantity" id="qty" placeholder="Qty" value="1" required>
                         <div class="btn btn-dark" onclick="sub()"><i class="fa fa-minus"></i></div> 
                         <button class="mt-2 btn btn-outline-success" type="submit" name="tocart"><h5>Add to Cart</h5></button>
                     </form>
@@ -92,8 +110,11 @@ session_start();
         if(cLogged()):
             ?>
                 <div class="inner p-4">
+                    
                     <form action="rate.php" method="post">
                         <div class="form-group">
+                            <input type="hidden" name="customer" value="<?php echo $_SESSION['customer_id']?>">
+                            <input type="hidden" name="product" value="<?=$product['pr_id']?>">
                         <label for="">Rate Product</label>
                         <select class="form-control" style="color:#f3aa06;" name="ratepoint" required>
                             <option value="5" selected>&#9733 &#9733 &#9733 &#9733 &#9733</option>
@@ -135,7 +156,22 @@ session_start();
                                 echo ")";
                                 ?>
                             </span></b>
-                            <p><?=$comment['feedback']?> <span style="float: right;">X</span></p>
+                            <p><?=$comment['feedback']?> 
+                                <?php 
+                                    if(isset($_SESSION['customer'])){
+                                        if($_SESSION['customer'] === $comment['email']):
+                                            ?>
+                                            <form action="delcomment.php" method="post">
+                                                    <input type="hidden" name="customerId" value="<?php echo $_SESSION['customer_id']?>">
+                                                    <input type="hidden" name="product" value="<?php echo $product['pr_id']?>">
+                                                    <button class="text-center btn" type="submit" name="delComment"><i class="fas fa-trash" style="color:red;"></i></button>
+                                            </form>  
+                                            <?php
+                                        endif;
+                                    }
+                                     
+                                ?>
+                            </p>
                         </li>
               <?php
                     endforeach;

@@ -31,7 +31,7 @@ $category = new Category;
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href="index.php">HOME</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="cart.php">CART</a> </li>
-                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">PAGES</a> </li>
+                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="orders.php">ORDERS</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">CONTACT</a> </li>
                     <?php 
                         if(!cLogged()){
@@ -50,15 +50,34 @@ $category = new Category;
                     ?>
                         <ul class="navbar-nav icons ms-auto mb-2 mb-lg-0">
                             <li class=" nav-item pe-3"> <a href="wish.php" class="fas fa-heart"> <span class="num rounded-circle">1</span> </a> </li>
-                            <li class=" nav-item pe-3"> <a href="cart.php" class="fas fa-shopping-bag"> <span class="num rounded-circle">3</span> </a> </li>
-                            <li class=" nav-item"> <span class="">items:</span> <span class="fw-bold">$150.00</span> </li>
+                            <li class=" nav-item pe-3"> 
+                                <a href="cart.php" class="fas fa-shopping-bag"> 
+                                    <span class="num rounded-circle">
+                                <?php
+                                    $cart = new Cart(); 
+                                        if(is_array($cart->getAll($_SESSION['customer_id']))){
+                                            echo count($cart->getAll($_SESSION['customer_id']));
+                                        }else{
+                                            echo 0;
+                                        }
+                                    ?>
+                                </span> 
+                                </a> 
+                            </li>
+                            <li class=" nav-item"> <span class="">items:</span> <span class="fw-bold">
+                                <?php
+                                    if($cart->total($_SESSION['customer_id']) > 0){
+                                        echo $cart->total($_SESSION['customer_id']);
+                                    }
+                                ?>
+                            </span> </li>
                         </ul>
                     <?php
                 }else{
                     ?>
                         <ul class="navbar-nav icons ms-auto mb-2 mb-lg-0">
-                            <li class=" nav-item pe-3"> <a href="wish.php" class="fas fa-heart"> <span class="num rounded-circle">1</span> </a> </li>
-                            <li class=" nav-item pe-3"> <a href="cart.php" class="fas fa-shopping-bag"> <span class="num rounded-circle">3</span> </a> </li>
+                            <li class=" nav-item pe-3"> <a href="wish.php" class="fas fa-heart"> <span class="num rounded-circle">0</span> </a> </li>
+                            <li class=" nav-item pe-3"> <a href="cart.php" class="fas fa-shopping-bag"> <span class="num rounded-circle">0</span> </a> </li>
                             <!-- <li class=" nav-item"> <span class="">items:</span> <span class="fw-bold">$150.00</span> </li> -->
                         </ul>
                     <?php
@@ -70,8 +89,8 @@ $category = new Category;
     </nav>
     <div class="row">
         <div class="col-lg-3 mb-lg-0 mb-2">
-            <p> <a  class="btn btn-primary w-100 d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample"> <span class="fas fa-bars"><span class="ps-3">All Categories</span></span> <span class="fas fa-chevron-down"></span> </a> </p>
-            <div class="collapse show border" id="collapseExample">
+            <p> <a  class="btn btn-primary w-100 d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#collapseExample"  role="button" aria-expanded="true" aria-controls="collapseExample"> <span class="fas fa-bars"><span class="ps-3">All Categories</span></span> <span class="fas fa-chevron-down"></span> </a> </p>
+            <div class="<?php if(isset($banda)){echo "collapse";}else{echo "collapse show";} ?>  border" id="collapseExample">
                 <ul class="list-unstyled">
                     <?php 
                     if($category->getAll() > 0):

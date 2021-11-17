@@ -42,6 +42,12 @@ class Product extends Dbh {
         $stmt->execute([$name, $desc, $newFileName, $price, $qty, $category, $brand, $id]);
     }
 
+    public function updateProductQty($product, $changeqty){
+        $sql = "UPDATE products set pr_qty = ? WHERE pr_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$product, $changeqty]);
+    }
+
     public function delProduct($id) {
         $sql = "DELETE FROM products WHERE pr_id = ?";
         $stmt = $this->connect()->prepare($sql);
@@ -66,6 +72,20 @@ class Product extends Dbh {
         }
     }
 
+    public function notRated($customer, $product){
+        $sql = "SELECT * FROM rating WHERE customer_id = ? AND product_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$customer, $product]);
+
+        if($stmt->fetch() > 0){
+            return false;
+        }else{
+            return true;
+        }
+        
+    }
+
+
     public function getComments($id) {
         $sql = "SELECT * FROM `rating` inner JOIN customers WHERE customer_id = customers.id AND product_id = $id";
         $stmt = $this->connect()->prepare($sql);
@@ -74,12 +94,25 @@ class Product extends Dbh {
            return $result;
         }
     }
+
+    public function delComment($customer, $product) {
+        $sql = "DELETE FROM rating WHERE customer_id = ? AND product_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$customer,  $product]);
+    }
+
+
+    public function addComment($customer, $ratepoint, $comment, $productid) {
+        $sql = "INSERT INTO rating (customer_id, rate_points, feedback, product_id) VALUES (?, ?, ?, ?)";
+        $stmt= $this->connect()->prepare($sql);
+        $stmt->execute([$customer, $ratepoint, $comment, $productid]);
+    }
     
     public function getStar($id){
         if(is_array($this->getRating($id))){
             $total = count($this->getRating($id));            
             $rated = 0;
-            foreach($this->getRating(32) as $prod){
+            foreach($this->getRating($id) as $prod){
                 // echo "<br>".$prod['rate_points'];
                 $rated = $rated + $prod['rate_points'];
             }

@@ -1,1 +1,1 @@
-ErrorDocument 404 /sem-v/error.php
+ErrorDocument 404 /sem-v/public/error.php
