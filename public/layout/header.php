@@ -32,7 +32,7 @@ $category = new Category;
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href="index.php">HOME</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="cart.php">CART</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="orders.php">ORDERS</a> </li>
-                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">CONTACT</a> </li>
+                    <!-- <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">CONTACT</a> </li> -->
                     <?php 
                         if(!cLogged()){
                     ?>
@@ -49,7 +49,16 @@ $category = new Category;
                 if(cLogged()){
                     ?>
                         <ul class="navbar-nav icons ms-auto mb-2 mb-lg-0">
-                            <li class=" nav-item pe-3"> <a href="wish.php" class="fas fa-heart"> <span class="num rounded-circle">1</span> </a> </li>
+                            <li class=" nav-item pe-3"> <a href="wish.php" class="fas fa-heart"> <span class="num rounded-circle">
+                                <?php 
+                                    $WISH = new Wish();
+                                    if(is_array($WISH->getAll($_SESSION['customer_id']))){
+                                        echo count($WISH->getAll($_SESSION['customer_id']));
+                                    }else{
+                                        echo 0;
+                                    }
+                                ?>
+                            </span> </a> </li>
                             <li class=" nav-item pe-3"> 
                                 <a href="cart.php" class="fas fa-shopping-bag"> 
                                     <span class="num rounded-circle">
@@ -64,10 +73,12 @@ $category = new Category;
                                 </span> 
                                 </a> 
                             </li>
-                            <li class=" nav-item"> <span class="">items:</span> <span class="fw-bold">
+                            <li class=" nav-item"> <span class="">items: Rs.</span> <span class="fw-bold">
                                 <?php
                                     if($cart->total($_SESSION['customer_id']) > 0){
                                         echo $cart->total($_SESSION['customer_id']);
+                                    }else{
+                                        echo "0";
                                     }
                                 ?>
                             </span> </li>
@@ -78,7 +89,6 @@ $category = new Category;
                         <ul class="navbar-nav icons ms-auto mb-2 mb-lg-0">
                             <li class=" nav-item pe-3"> <a href="wish.php" class="fas fa-heart"> <span class="num rounded-circle">0</span> </a> </li>
                             <li class=" nav-item pe-3"> <a href="cart.php" class="fas fa-shopping-bag"> <span class="num rounded-circle">0</span> </a> </li>
-                            <!-- <li class=" nav-item"> <span class="">items:</span> <span class="fw-bold">$150.00</span> </li> -->
                         </ul>
                     <?php
                 }
@@ -109,18 +119,15 @@ $category = new Category;
         <div class="col-lg-9">
             <div class="d-lg-flex">
                 <div class="d-lg-flex align-items-center">
-                    <!-- <div class="dropdown w-100 my-lg-0 my-2"> <button class="btn btn-secondary d-flex justify-content-between align-items-center" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="true"> <span class=" w-100 d-flex align-items-center"> <span class=" fw-lighter pe-2">ALL</span><span class="fw-lighter pe-3"> Categories</span> <span class="fas fa-chevron-down ms-auto"></span> </span> </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <li><a class="dropdown-item" href="#">Fresh Meat</a></li>
-                            <li><a class="dropdown-item" href="#">Vegetable</a></li>
-                            <li><a class="dropdown-item" href="#">Fruit & Nut Gifts</a></li>
-                            <li><a class="dropdown-item" href="#">Fresh Berries</a></li>
-                        </ul>
-                    </div> -->
+                    <form action="search.php" method="post">
                     <div class="d-flex align-items-center w-100 h-100 ps-lg-0 ps-sm-3">
-                         <input class="form-control p-2" type="text" placeholder="what do you need?">
-                        <div class="btn btn-primary d-flex align-items-center justify-content-center"> SEARCH</div>
-                    </div>
+                       
+                       <input class="form-control p-2" type="text" name='item_searched' placeholder="what do you need?" required>
+                       <button type="submit" name="search" class="btn btn-primary d-flex align-items-center justify-content-center">SEARCH</button>
+                   
+               </div>
+                    </form>
+                    
                 </div>
                 <?php 
                             if(cLogged()){

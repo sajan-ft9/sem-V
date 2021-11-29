@@ -6,5 +6,7 @@ require_once "../classes/admin.class.php";
 require_once "../classes/customer.class.php";
 require_once "../classes/cart.class.php";
 require_once "../classes/orders.class.php";
+require_once "../classes/wish.class.php";
+
 
 

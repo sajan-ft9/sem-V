@@ -31,7 +31,7 @@ session_start();
                     <p class="card-text"><?=$product['pr_desc']?></p>
                     <h5>Rs.<?=$product['pr_price']?></h5>
                     
-                    <span class="card-text text-muted"> Rating: <?php echo $products->getStar($product['pr_id'])['percent'] > 0 ? $products->getStar($product['pr_id'])['percent']."%" : "No reviews yet!" ?></span>                    
+                    <span class="card-text text-muted"> Rating: <?php echo $products->getStar($product['pr_id'])['rating'] > 0 ? $products->getStar($product['pr_id'])['rating']."/5" : "No reviews yet!" ?></span>                    
                     <ul class="rating-stars">
                         <li style="width:<?=$products->getStar($product['pr_id'])['percent']?>%" class="stars-active">
                             <i class="fa fa-star"></i> <i class="fa fa-star"></i>
@@ -85,9 +85,15 @@ session_start();
                         <div class="btn btn-dark" onclick="sub()"><i class="fa fa-minus"></i></div> 
                         <button class="mt-2 btn btn-outline-success" type="submit" name="tocart"><h5>Add to Cart</h5></button>
                     </form>
+                    
                     <form action="wish.php" method="post">
-                        <button class="heart btn btn-outline-light" type="submit" name="wish"><i class="fa fa-heart"></i></button>
-                    </form>
+                                <input type="hidden" name="product" value="<?=$product['pr_id']?>">
+                                
+                                <button class="heart btn btn-outline-light" type="submit" name="wish">
+                                    <i class="fas fa-heart"></i> 
+                                </button>
+                                
+                            </form>
                 </div>
                 </div>
             </div>

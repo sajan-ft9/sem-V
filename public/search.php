@@ -1,37 +1,17 @@
 <?php 
-require_once "../helpers/functions.php";
-// customerLogin();
+$banda = true;
 session_start();
-
-require_once "layout/header.php";
-$products = new Product();
-
+if(isset($_POST['search'])):
+    require_once "layout/header.php";
+    $PRODUCT = new Product;
+    $item = clean($_POST['item_searched']);
 ?>
 <link rel="stylesheet" href="layout/css/productlist.css">
-<?php
-$banner = $products->getLast(); 
-if($banner > 0):
-?>
-            <div class=" d-lg-flex flex-lg-row d-flex flex-column-reverse bg-light mt-2">
-                <div class="p-5" id="2">
-                    <p class="p-green"><?=$banner['pr_brand']?></p>
-                    <P class="fs-4 fw-bold"><?=$banner['pr_name']?></P>
-                    <p class="fs-4 fw-bold"><?=$banner['pr_price']?></p>
-                    <p class="text-muted mb-4">Free Delivery Available</p>
-                        <form action="buynow.php" method="post">
-                                <input type="hidden" name="product" value="<?=$banner['pr_id']?>" required>
-                                <button type="submit" name="buynow" class="btn btn-outline-primary w-100">BUY NOW</button> 
-                        </form>
-                </div>
-                <div id="1"> <img src="../admin/uploads/<?=$banner['pr_img']?>" class="w-100 h-100" alt="banner img"> </div>
-            </div>
-            <?php 
-            endif; ?>
-        </div>
+</div>
         <div class="row g-1 mt-4 mb-2">
-            <?php 
-            if($products->getProduct() > 0):
-                foreach($products->getProduct() as $product):
+<?php
+        if($PRODUCT->searchItem($item) > 0):
+                foreach($PRODUCT->searchItem($item) as $product):
             ?>
                 <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1">    
                     <div class="card p-2 ml-5 border">
@@ -55,13 +35,12 @@ if($banner > 0):
                         <div class="p-about">
                             <p><?=$product['pr_desc']?></p>
                         </div>
-                        <div class="buttons d-flex flex-row gap-3 px-3"> 
-                            <a href="view.php?id=<?=$product['pr_id']?>" class="text-white"><button class="btn btn-danger w-100">View</button></a> 
+                        <div class="buttons d-flex flex-row gap-3 px-3"> <a href="view.php?id=<?=$product['pr_id']?>" class="text-white"><button class="btn btn-danger w-100">View</button></a> 
                             <form action="buynow.php" method="post">
                                 <input type="hidden" name="product" value="<?=$product['pr_id']?>" required>
                                 <button type="submit" name="buynow" class="btn btn-outline-danger w-100"><i class="fas fa-shopping-cart"></i></button> 
-                            </form>
-                    </div>
+                            </form> 
+                        </div>
                     </div>
                 </div>
             <?php    
@@ -76,5 +55,13 @@ if($banner > 0):
             endif;
             ?>
         </div>
+<?php
+else:
+    header("Location:index.php");
+    die;
+endif;
+?>
 
-<?php require_once "layout/footer.php" ?>
+
+
+<?php require_once "layout/header.php" ?>

@@ -54,6 +54,14 @@ class Product extends Dbh {
         $stmt->execute([$id]);
     }
 
+    public function getLast(){
+        $sql = "SELECT * FROM products inner join categories on cat_id = categories.ct_id ORDER BY pr_id DESC LIMIT 1";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result;
+    }
+
     // public function getRating($id) {
     //     $sql = "SELECT * FROM `products` INNER JOIN rating WHERE pr_id = rating.product_id AND pr_id = ?";
     //     $stmt = $this->connect()->prepare($sql);
@@ -122,11 +130,21 @@ class Product extends Dbh {
             $rating = $rated/$total;
     
             $percent = ($rated/($total*5))*100;
-            return ['percent'=>$percent, "rating"=>$rating, "total"=>$total];
+            $rating_fix = number_format($rating, 1, '.', '');
+            return ['percent'=>$percent, "rating"=>$rating_fix, "total"=>$total];
         }
         else{
-            return ['percent'=>$percent=0]; 
+            return ['percent'=>$percent=0, 'rating'=>$rating_fix=0]; 
         }
         
+    }
+
+    public function searchItem($name){
+        $sql = "SELECT * FROM products INNER JOIN categories WHERE (products.pr_name LIKE '%$name%' OR products.pr_desc LIKE '%$name%' OR categories.ct_name LIKE '%$name%') AND products.cat_id = categories.ct_id";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+        while($result = $stmt->fetchAll()) {
+            return $result;
+        }    
     }
 }

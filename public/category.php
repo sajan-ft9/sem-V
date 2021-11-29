@@ -35,13 +35,26 @@ $result = $category->selectedCategory($_GET['id']);
                             <div class="p-price d-flex flex-row"> <span>Rs</span>
                                 <h1><?=$category['pr_price']?></h1>
                             </div>
-                            <div class="heart"> <i class="fas fa-heart"></i> </div>
+                            <form action="wish.php" method="post">
+                                <input type="hidden" name="product" value="<?=$category['pr_id']?>" required>
+                                <div class="heart">
+                                <button type="submit" name="wish">
+                                    <i class="fas fa-heart"></i> 
+                                </button>
+                                </div>
+                            </form>
+                            <!-- <div class="heart"> <i class="fas fa-heart"></i> </div> -->
                         </div>
                         <div class="text-center p-image"> <img src="../admin/uploads/<?=$category['pr_img']?>"> </div>
                         <div class="p-about">
                             <p><?=$category['pr_desc']?></p>
                         </div>
-                        <div class="buttons d-flex flex-row gap-3 px-3"> <a href="view.php?id=<?=$category['pr_id']?>" class="text-white"><button class="btn btn-danger w-100">View</button></a> <button class="btn btn-outline-danger w-100">Buy Now</button> </div>
+                        <div class="buttons d-flex flex-row gap-3 px-3"> <a href="view.php?id=<?=$category['pr_id']?>" class="text-white"><button class="btn btn-danger w-100">View</button></a> 
+                            <form action="buynow.php" method="post">
+                                <input type="hidden" name="product" value="<?=$category['pr_id']?>" required>
+                                <button type="submit" name="buynow" class="btn btn-outline-danger w-100"><i class="fas fa-shopping-cart"></i></button> 
+                            </form> 
+                        </div>
                     </div>
                 </div>   
           

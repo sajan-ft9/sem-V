@@ -19,7 +19,9 @@ if(isset($_SESSION['customer'])){
     $products = new Product();
  
     // print_r($cart->getAll($_SESSION['customer_id']));
-    ?>
+    if($cart->getAll($_SESSION['customer_id']) > 0):
+        $total = 0;
+?>
     <table class="table table-dark table-hover">
         <thead>
             <tr>
@@ -34,8 +36,7 @@ if(isset($_SESSION['customer'])){
         <p style="color: red;" id="show"></p>
 
             <?php 
-                if($cart->getAll($_SESSION['customer_id']) > 0):
-                        $total = 0;
+
                     foreach ($cart->getAll($_SESSION['customer_id']) as $items) {
                             $total = $total + $items['pr_price']*$items['qty'];
                         ?>

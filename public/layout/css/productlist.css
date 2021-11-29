@@ -106,7 +106,7 @@
     }
 
     100% {
-        right: 200px;
+        right: 190px;
         top: 70px
     }
 }
@@ -123,7 +123,7 @@
     }
 
     100% {
-        width: 180px;
+        width: 120px;
         top: 100px;
         transform: translateY(100px);
         transform: translateX(110px)
