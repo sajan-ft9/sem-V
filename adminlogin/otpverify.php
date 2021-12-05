@@ -20,6 +20,16 @@
 </div>
 
 <?php 
+session_start();
+if(!isset($_SESSION['ha-admin'])){
+    header('Location:ha-admin.php');
+    die;
+}
+
+if(isset($_SESSION['logged'])){
+    header('Location:../admin/index.php');
+    die;
+}
 
 require_once "../includes/init.php";
 
@@ -38,11 +48,12 @@ require_once "../includes/init.php";
                 if($otp === $db_otp['otp']){
                     if($admin->get($username) > 0){
                         $verify = $admin->get($username);
-                        session_start();
+                        // session_start();
                         $_SESSION['logged'] = $verify['username'];
                         $_SESSION['email'] = $verify['email'];
-                        echo $_SESSION['logged'];
-                        echo $_SESSION['email'];
+                        // echo $_SESSION['logged'];
+                        // echo $_SESSION['email'];
+                        session_unset($_SESSION['ha-admin']);
                         header("Location: ../admin/index.php");
                         die;
                     }

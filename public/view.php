@@ -48,36 +48,40 @@ session_start();
                     <form class="mt-3" action="" method="post">
                         <?php 
                         if($_SERVER['REQUEST_METHOD']=="POST"){
-                            if(isset($_POST['tocart'])){
-                                if(is_numeric($_POST['quantity']) && ($_POST['quantity'] > 0)){
-                                    $qty = clean($_POST['quantity']);
-                                    if($qty <= $product['pr_qty']){
-                                        $cart = new Cart();
-                                        $select = $cart->selected($product['pr_id'], $_SESSION['customer_id']);
-                                        if($select > 0){
-                                            if(($select['qty'] + $qty) <= $product['pr_qty']){
-                                                $cart->update($select['qty']+ $qty, $product['pr_id'], $_SESSION['customer_id']);
+                            if(isset($_SESSION['customer'])){
+                                if(isset($_POST['tocart'])){
+                                    if(is_numeric($_POST['quantity']) && ($_POST['quantity'] > 0)){
+                                        $qty = clean($_POST['quantity']);
+                                        if($qty <= $product['pr_qty']){
+                                            $cart = new Cart();
+                                            $select = $cart->selected($product['pr_id'], $_SESSION['customer_id']);
+                                            if($select > 0){
+                                                if(($select['qty'] + $qty) <= $product['pr_qty']){
+                                                    $cart->update($select['qty']+ $qty, $product['pr_id'], $_SESSION['customer_id']);
+                                                    echo "<script>window.location.replace('cart.php')</script>";
+                                                    die;
+                                                }else{
+                                                    echo  "<p style='color:red'>Cart quantity exceeds stock.</p>";
+                                                }
+                                                
+                                            }else{
+                                                echo "none";
+                                                $cart->add($product['pr_id'], $_SESSION['customer_id'], $qty);
                                                 echo "<script>window.location.replace('cart.php')</script>";
                                                 die;
-                                            }else{
-                                                echo  "<p style='color:red'>Cart quantity exceeds stock.</p>";
-                                            }
-                                            
+                                            }    
                                         }else{
-                                            echo "none";
-                                            $cart->add($product['pr_id'], $_SESSION['customer_id'], $qty);
-                                            echo "<script>window.location.replace('cart.php')</script>";
-                                            die;
-                                        }    
-                                    }else{
-                                        echo  "<p style='color:red'>Selected quantity is more than stock.</p>";
+                                            echo  "<p style='color:red'>Selected quantity is more than stock.</p>";
+                                        }
+                                        
                                     }
-                                    
+                                    else{
+                                        echo  "<p style='color:red'>Enter valid quantity</p>";
+                                    }     
                                 }
-                                else{
-                                    echo  "<p style='color:red'>Enter valid quantity</p>";
-                                }     
-                            }    
+                            }else{
+                                echo  "<a style='color:red' href='login.php'><p>Login to add</p></a>";
+                            }        
                         }
                         ?>
                         <div class="btn btn-info" onclick="add()"><i class="fa fa-plus"></i></div> 

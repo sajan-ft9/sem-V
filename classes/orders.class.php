@@ -3,6 +3,16 @@ require_once "../classes/dbh.class.php";
 
 class Orders extends Dbh {
 
+    public function allOrders(){
+        $sql = "SELECT * FROM `orders` INNER JOIN products WHERE products.pr_id = productid AND sold = 0";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+
+        while($result = $stmt->fetchAll()) {
+            return $result;
+        }
+    }
+
     public function getAll($customer_id){
         $sql = "SELECT * FROM `orders` INNER JOIN products WHERE products.pr_id = productid AND customer_id = ? AND sold = 0";
         $stmt = $this->connect()->prepare($sql);

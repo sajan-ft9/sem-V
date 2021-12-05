@@ -6,7 +6,7 @@ require_once "layout/header.php";
 if(!isset($_SESSION['customer'])){
     echo "
     <div class='alert alert-info' role='alert'>
-        Please login to access cart! <a href='login.php' class='alert-link'>Login</a>
+        Please login to access wishlist! <a href='login.php' class='alert-link'>Login</a>
     </div>
 ";
     die;

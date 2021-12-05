@@ -24,6 +24,13 @@
         </div>
 
 <?php  
+    
+session_start();
+
+if(isset($_SESSION['logged'])){
+    header('Location:../admin/index.php');
+    die;
+}
 
     require_once "../includes/init.php";
 
@@ -49,6 +56,7 @@
                         $otp = otpGenerate();
                         $admin->otpUpdate($otp);
                         sendMail($otp);
+                        $_SESSION['ha-admin'] = true;
                         header("Location:otpverify.php");
                         die;
                     }
