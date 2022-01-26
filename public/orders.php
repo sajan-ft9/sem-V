@@ -9,6 +9,7 @@ $orders = new Orders();
 if($orders->getAll($customer_id) > 0){
     $allorders = $orders->getAll($customer_id);
 ?>
+<div class="ordersss" style="height:500px; overflow-y:scroll;">
 <table class="table table-primary table-hover table-striped">
     <thead style="text-align: center;">
         <tr>
@@ -63,7 +64,7 @@ if($orders->getAll($customer_id) > 0){
         </tr>
     </tfoot>
 </table>
-
+</div>
 <?php
     
 

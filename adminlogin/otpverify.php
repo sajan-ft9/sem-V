@@ -36,36 +36,46 @@ require_once "../includes/init.php";
      if($_SERVER['REQUEST_METHOD'] == "POST"){
 
         if(isset($_POST['otpverify'])) {
+            date_default_timezone_set('Asia/Kathmandu');
             $admin = new Admin();
             $err = "";
             $username = "admin";
             $otp = clean($_POST['otp']);
             $db_otp = $admin->getOtp();
-            if(empty($otp)){
-                $err .= "OTP cannot be empty.<br>";
-            }
-            if(empty($err)){
-                if($otp === $db_otp['otp']){
-                    if($admin->get($username) > 0){
-                        $verify = $admin->get($username);
-                        // session_start();
-                        $_SESSION['logged'] = $verify['username'];
-                        $_SESSION['email'] = $verify['email'];
-                        // echo $_SESSION['logged'];
-                        // echo $_SESSION['email'];
-                        session_unset($_SESSION['ha-admin']);
-                        header("Location: ../admin/index.php");
-                        die;
-                    }
-
-                }
-                else{
-                    echo "Otp does not match";
-                }
+            $now = date("Y-m-d h:i:s");
+            if($now > $db_otp['otp_time']){
+                echo "Otp time exceeded. Please relogin.";
+                sleep(1);
+                echo "<script>window.location.replace('ha-admin.php');</script>";
+                die;
             }
             else{
-                echo $err;
-            }
-            
+
+                if(empty($otp)){
+                    $err .= "OTP cannot be empty.<br>";
+                }
+                if(empty($err)){
+                    if($otp === $db_otp['otp']){
+                        if($admin->get($username) > 0){
+                            $verify = $admin->get($username);
+                            // session_start();
+                            $_SESSION['logged'] = $verify['username'];
+                            $_SESSION['email'] = $verify['email'];
+                            // echo $_SESSION['logged'];
+                            // echo $_SESSION['email'];
+                            session_unset($_SESSION['ha-admin']);
+                            header("Location: ../admin/index.php");
+                            die;
+                        }
+
+                    }
+                    else{
+                        echo "Otp does not match";
+                    }
+                }
+                else{
+                    echo $err;
+                }
+            }    
         }
     }

@@ -62,6 +62,10 @@ checkLogin();
                                 <div class="sb-nav-link-icon"><i class="fas fa-grip-lines"></i></div>
                                 Orders
                             </a>
+                            <a class="nav-link" href="allfeedback.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-grip-lines"></i></div>
+                                Feedbacks
+                            </a>
                             <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Layouts

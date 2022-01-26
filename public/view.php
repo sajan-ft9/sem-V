@@ -166,7 +166,7 @@ session_start();
                                 echo ")";
                                 ?>
                             </span></b>
-                            <p><?=$comment['feedback']?> 
+                            <p><?=$comment['feedback']?>  
                                 <?php 
                                     if(isset($_SESSION['customer'])){
                                         if($_SESSION['customer'] === $comment['email']):
@@ -181,7 +181,8 @@ session_start();
                                     }
                                      
                                 ?>
-                            </p>
+                        </p>
+                            
                         </li>
               <?php
                     endforeach;

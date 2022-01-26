@@ -3,6 +3,8 @@
 require_once "../includes/init.php";
 customerLogin();
 require_once "layout/header.php";
+require_once "setting.php";
+
 $customer_id = $_SESSION['customer_id'];
 $PROD = new Product();
 $cart = new Cart();
@@ -24,11 +26,31 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
                         $PROD->updateProductQty($changeqty, $detail['product_id']);
                     }
                     $cart->deleteAll($customer_id);
+                    echo "<script>window.location.replace('orders.php')</script>";
+                    die;
                 }else{
                     echo "<script>window.location.replace('index.php')</script>";
                     die;                
                 }
                 
+            }
+            if($_POST['payment'] === "esewa"){
+                $order_address = clean($_POST['street'].','.$_POST['city'].','.$_POST['country'].','.$_POST['zip']);
+                $_SESSION['address'] = $order_address;
+                $total = $cart->total($customer_id);?>
+                <form action=<?php echo $epay_url?> method="POST">
+                    <input value="<?=$total ?>" name="tAmt" type="hidden">
+                    <input value="<?=$total ?>" name="amt" type="hidden">
+                    <input value="0" name="txAmt" type="hidden">
+                    <input value="0" name="psc" type="hidden">
+                    <input value="0" name="pdc" type="hidden">
+                    <input value=<?php echo $merchant_code?>  name="scd" type="hidden">
+                    <input value="<?php echo $pid?>" name="pid" type="hidden">
+                    <input value=<?php echo $successurl?> type="hidden" name="su">
+                    <input value=<?php echo $failedurl?> type="hidden" name="fu">
+                    <input value="Pay with Esewa Rs <?=$total?>" type="submit" class="btn btn-primary">
+                </form>
+            <?php
             }
         }else{
             echo "<p style:'color:red'>Please fill all values</p>";

@@ -11,6 +11,7 @@ if(isset($_POST['buynow'])):
     $select = $cart->selected($product_id, $_SESSION['customer_id']);
     if($select > 0){
         if(($select['qty'] + $qty) <= $product['pr_qty']){
+            echo "Loading";
             $cart->update($select['qty']+ $qty, $product['pr_id'], $_SESSION['customer_id']);
             echo "<script>window.location.replace('cart.php')</script>";
             die;
@@ -21,7 +22,7 @@ if(isset($_POST['buynow'])):
         }
         
     }else{
-        echo "none";
+        echo "Loading";
         $cart->add($product['pr_id'], $_SESSION['customer_id'], $qty);
         echo "<script>window.location.replace('cart.php')</script>";
         die;

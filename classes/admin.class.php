@@ -25,19 +25,35 @@ class Admin extends Dbh {
         $stmt->execute([$password, $username]);
     }
 
-    public function otpUpdate($otp){
-        $sql = "UPDATE admin SET otp = ? WHERE id = 1";
+    public function otpUpdate($otp, $otp_time){
+        $sql = "UPDATE admin SET otp = ?, otp_time = ? WHERE id = 1";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$otp]);
+        $stmt->execute([$otp, $otp_time]);
     }
 
     public function getOtp() {
-        $sql = "SELECT otp FROM admin";
+        $sql = "SELECT otp, otp_time FROM admin";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch();
         return $result;
     }
+
+    public function allComments($cus_name) {
+        $sql = "SELECT * FROM `rating` INNER JOIN customers WHERE customer_id = customers.cus_id AND (customers.name LIKE '%$cus_name%' OR rating.feedback LIKE '%$cus_name%')";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$cus_name]);
+        while($result = $stmt->fetchAll()) {
+           return $result;
+        }
+    }
+
+    public function delBadComment($id) {
+        $sql = "DELETE FROM rating WHERE id=?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+    }
+
 
 
 }

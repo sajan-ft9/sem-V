@@ -54,7 +54,10 @@ if(isset($_SESSION['logged'])){
                     $verify = $admin->get($username);
                     if(password_verify($password, $verify['password'])){
                         $otp = otpGenerate();
-                        $admin->otpUpdate($otp);
+                        date_default_timezone_set('Asia/Kathmandu');
+                        $date=strtotime(date("h:i:s"))+900;
+                        $otp_time=date("Y-m-d h:i:s",$date);
+                        $admin->otpUpdate($otp, $otp_time);
                         sendMail($otp);
                         $_SESSION['ha-admin'] = true;
                         header("Location:otpverify.php");

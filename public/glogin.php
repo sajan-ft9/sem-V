@@ -35,7 +35,7 @@ $client->addScope('email');
                if($customer->selected($email)['login_type'] === "gmail"){
                     if($customer->selected($email)['name'] === $name){
                         $_SESSION['customer'] = $customer->selected($email)['email'];
-                        $_SESSION['customer_id'] = $customer->selected($email)['id'];
+                        $_SESSION['customer_id'] = $customer->selected($email)['cus_id'];
                         echo "<script>window.location.replace('index.php')</script>";
                         die;
                     }else{

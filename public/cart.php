@@ -74,7 +74,7 @@ if(isset($_SESSION['customer'])){
             else:
                 echo "
                     <div class='alert alert-info' role='alert'>
-                    No items present in cart!
+                    No items present in cart! <a class='btn' href='index.php'>Add Items</a>
                     </div>
                 ";
             endif; 

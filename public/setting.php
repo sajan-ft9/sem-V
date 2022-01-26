@@ -1,4 +1,10 @@
 <?php 
+require_once "../includes/init.php";
+
+$customer_id = $_SESSION['customer_id'];
+
+$cart = new Cart();
+
 
 // Change Info From Here
 
@@ -10,6 +16,6 @@ $merchant_code = "epay_payment";
 $fraudcheck_url = "https://uat.esewa.com.np/epay/transrec";
 
 // For Amount Check
-$actualamount = 1000;
+$actualamount = $cart->total($customer_id);
 
 ?>

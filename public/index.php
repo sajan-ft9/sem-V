@@ -2,7 +2,9 @@
 require_once "../helpers/functions.php";
 // customerLogin();
 session_start();
-
+if(isset($_SESSION['order_placed'])){
+    unset($_SESSION['order_placed']);
+}
 require_once "layout/header.php";
 $products = new Product();
 
@@ -23,7 +25,7 @@ if($banner > 0):
                                 <button type="submit" name="buynow" class="btn btn-outline-primary w-100">BUY NOW</button> 
                         </form>
                 </div>
-                <div id="1"> <img src="../admin/uploads/<?=$banner['pr_img']?>" class="w-100 h-100" alt="banner img"> </div>
+                <div id="1"> <img src="../admin/uploads/<?=$banner['pr_img']?>" class="w-200 h-100" alt="banner img"> </div>
             </div>
             <?php 
             endif; ?>

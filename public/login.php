@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD']== "POST"){
             if($customer->selected($email)['login_type'] === "custom"){
                 if(password_verify($password, $customer->selected($email)['password'])){
                     $_SESSION['customer'] = $customer->selected($email)['email'];
-                    $_SESSION['customer_id'] = $customer->selected($email)['id'];
+                    $_SESSION['customer_id'] = $customer->selected($email)['cus_id'];
                     echo "<script>window.location.replace('index.php')</script>";
                     die;
                 }else{

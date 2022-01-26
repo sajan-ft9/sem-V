@@ -81,8 +81,10 @@ $product = $products->editProduct($_GET['id']);
       if(!empty($filename)){
         $newFileName = uniqid('', true) . "." . $imageFileType;
         $fileDestination = "uploads/".$newFileName;
-    
-        $products->updateProduct($name, $desc, $newFileName, $price, $qty, $category, $brand, $id);
+        
+        $stock = $product['stock']+ $qty;
+        
+        $products->updateProduct($name, $desc, $newFileName, $price, $qty, $category, $brand, $stock, $id);
         
         move_uploaded_file($tempname, $fileDestination);
   
@@ -91,7 +93,9 @@ $product = $products->editProduct($_GET['id']);
         echo "<script>window.location.replace('index.php')</script>";
         die;
       }else{
-        $products->updateProduct($name, $desc, $img_del, $price, $qty, $category, $brand, $id);
+        $stock = $product['stock']+ $qty;
+
+        $products->updateProduct($name, $desc, $img_del, $price, $qty, $category, $brand, $stock, $id);
         echo "<script>window.location.replace('index.php')</script>";
         die;
 

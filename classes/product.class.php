@@ -22,9 +22,9 @@ class Product extends Dbh {
     }
 
     public function addProduct($name, $desc, $image, $price, $qty, $category, $brand) {
-        $sql = "INSERT INTO products (pr_name, pr_desc, pr_img, pr_price, pr_qty, cat_id, pr_brand) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO products (pr_name, pr_desc, pr_img, pr_price, pr_qty, cat_id, pr_brand, stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt= $this->connect()->prepare($sql);
-        $stmt->execute([$name, $desc, $image, $price, $qty, $category, $brand]);
+        $stmt->execute([$name, $desc, $image, $price, $qty, $category, $brand, $qty]);
     }
 
     public function editProduct($id) {
@@ -36,10 +36,10 @@ class Product extends Dbh {
         return $result;
     }
 
-    public function updateProduct($name, $desc, $newFileName, $price, $qty, $category, $brand, $id) {
-        $sql = "UPDATE products set pr_name = ?, pr_desc = ?, pr_img = ?, pr_price = ?, pr_qty = ?, cat_id = ?, pr_brand = ? WHERE pr_id = ?";
+    public function updateProduct($name, $desc, $newFileName, $price, $qty, $category, $brand, $stock, $id) {
+        $sql = "UPDATE products set pr_name = ?, pr_desc = ?, pr_img = ?, pr_price = ?, pr_qty = ?, cat_id = ?, pr_brand = ?, stock = ? WHERE pr_id = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$name, $desc, $newFileName, $price, $qty, $category, $brand, $id]);
+        $stmt->execute([$name, $desc, $newFileName, $price, $qty, $category, $brand, $stock, $id]);
     }
 
     public function updateProductQty($product, $changeqty){
@@ -95,7 +95,7 @@ class Product extends Dbh {
 
 
     public function getComments($id) {
-        $sql = "SELECT * FROM `rating` inner JOIN customers WHERE customer_id = customers.id AND product_id = $id";
+        $sql = "SELECT * FROM `rating` inner JOIN customers WHERE customer_id = customers.cus_id AND product_id = $id";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
         while($result = $stmt->fetchAll()) {
