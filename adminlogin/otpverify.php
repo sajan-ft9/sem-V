@@ -18,7 +18,6 @@
                     </div>
     </div>
 </div>
-
 <?php 
 session_start();
 if(!isset($_SESSION['ha-admin'])){
@@ -50,7 +49,6 @@ require_once "../includes/init.php";
                 die;
             }
             else{
-
                 if(empty($otp)){
                     $err .= "OTP cannot be empty.<br>";
                 }

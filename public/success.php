@@ -18,8 +18,7 @@ $data =[
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec($curl);
- 
+    $response = curl_exec($curl); 
     curl_close($curl);
     
 if(!isset($_SESSION['order_placed'])){

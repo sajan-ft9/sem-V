@@ -4,6 +4,7 @@ require_once "../includes/init.php";
 
 $products = new Product();
 
+
 if ($_GET['send'] === 'del') {
     $id = $_GET['id'];
     $img_del = $_GET['name'];
@@ -16,5 +17,8 @@ if ($_GET['send'] === 'del') {
     // header("Location: {$_SERVER['HTTP_ORIGIN']}/admin");
     die;
 }
+
+
+
 
 

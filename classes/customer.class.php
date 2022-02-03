@@ -21,6 +21,15 @@ class Customer extends Dbh{
         return $result;
     }
 
+    public function customerDetails($id) {
+        $sql = "SELECT name FROM `customers` WHERE cus_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+
+        $result = $stmt->fetch();
+        return $result;
+    }
+
     public function add($name, $contact, $email, $password) {
         $sql = "INSERT INTO customers (name, contact, email, password, login_type) VALUES (?, ?, ?, ?, ?)";
         $stmt= $this->connect()->prepare($sql);

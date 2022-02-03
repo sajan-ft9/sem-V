@@ -21,15 +21,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     if(empty($name)){
       $err .= "Name required<br>";
     }else {
-      if(!preg_match("/^[a-zA-Z0-9-' ]{3,25}$/", $name)) {
-        $err .= "Name can only use(- and alphanumeric 3-25 characters)<br>";
+      if(!preg_match("/^[a-zA-Z0-9-' ]{3,254}$/", $name)) {
+        $err .= "Name can only use(- and alphanumeric 3-254 characters)<br>";
       }
     }
 
     if(empty($desc)){
       $err .= "Description required<br>";
     }else{
-      if(strlen($desc) >= 254 ) {
+      if(strlen($desc) >= 254) {
         $err .= "Too long description<br>";
       }
     }

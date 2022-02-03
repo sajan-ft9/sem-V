@@ -25,6 +25,17 @@ function checkLogin() {
     }
 }
 
+function deliveryLogin() {
+    session_start();
+    if(isset($_SESSION['deliver'])){
+        return;
+    }
+    else{
+        header("Location: ../deliver/login.php");
+        die;
+    }
+}
+
 function customerLogin(){
     session_start();
     if(isset($_SESSION['customer'])){

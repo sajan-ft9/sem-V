@@ -13,7 +13,7 @@ class Orders extends Dbh {
         }
     }
 
-    public function getAll($customer_id){
+    public function getSelected($customer_id){
         $sql = "SELECT * FROM `orders` INNER JOIN products WHERE products.pr_id = productid AND customer_id = ? AND sold = 0";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$customer_id]);
@@ -33,6 +33,16 @@ class Orders extends Dbh {
             $sql = "INSERT INTO `orders`(`customer_id`, productid, quantity, `payment_type`, `amount`, `order_date`, `order_address`, `order_delivered`, payment_received, sold) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 1, 0)";
             $stmt= $this->connect()->prepare($sql);
             $stmt->execute([$customer_id, $pr_id, $pr_qty, $payment_type, $amount, $order_date, $order_address]);    
+        }
+    }
+
+    public function showOrders(){
+        $sql = "SELECT * FROM customers INNER JOIN orders WHERE customers.cus_id=orders.customer_id AND orders.sold = 0 GROUP BY customers.cus_id ORDER BY orders.order_date";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+
+        while($result = $stmt->fetchAll()) {
+            return $result;
         }
     }
 }
