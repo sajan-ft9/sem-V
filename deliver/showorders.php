@@ -18,6 +18,7 @@ if($_SERVER["REQUEST_METHOD"] === "GET"){
                         <th>Quantity</th>
                         <th>Amount</th>
                         <th>Order Date</th>
+                        <th>Bill No</th>
                         <th>Delivery</th>
                         <th>Payment</th>
                         <!-- <th>Action</th> -->
@@ -33,12 +34,44 @@ if($_SERVER["REQUEST_METHOD"] === "GET"){
                                     <td><?=$details['quantity']?></td>
                                     <td><?=number_format($details['amount'], 2)?></td>
                                     <td><?=$details['order_date']?></td>
-                                    <td><?=$details['order_delivered']?></td>  
-                                    <td><?=$details['payment_received']?></td>                                    
+                                    <td><?=$details['bill_no']?></td>
+                                    <td>
+                                        <?php
+                                            if($details['order_delivered'] === '1'){
+                                                echo "<h2>&#10004;</h2>";
+                                            }elseif($details['order_delivered'] === '0'){
+                                        ?>
+                                                <form action="toggle.php" method="post">
+                                                    <input type="hidden" name="orderid" value="<?=$details['id']?>" required>
+                                                    <input type="hidden" name="cus_id" value="<?=$cus_id?>" required>
+                                                    <button type="submit" class="btn btn-warning" name="delivery_confirm">Confirm Delivery</button>
+                                                </form>
+                                        <?php
+                                            }
+                                        ?>
+                                    </td>  
+                                    <td>
+                                        <?php
+                                            if($details['payment_received'] === '1'){
+                                                echo "<h2>&#10004;</h2>";
+                                            }elseif($details['payment_received'] === '0'){
+                                        ?>
+                                                <form action="toggle.php" method="post">
+                                                    <input type="hidden" name="orderid" value="<?=$details['id']?>" required>
+                                                    <input type="hidden" name="cus_id" value="<?=$cus_id?>" required>
+                                                    <button type="submit" class="btn btn-info" name="payment_confirm">Confirm Payment</button>
+                                                </form>
+                                        <?php
+                                            }
+                                        ?>
+                                    </td>                                    
                                 </tr>
                             <?php
                             }
-                        }
+        }else{
+            echo "<script>window.location.replace('index.php');</script>";
+            die;        
+        }
                         ?>        
                 </tbody>
             </table>       

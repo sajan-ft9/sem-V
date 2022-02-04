@@ -18,10 +18,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
                 date_default_timezone_set('Asia/Kathmandu');
                 $order_date = date("Y-m-d H:i:s");
                 $cart_detail = $cart->getAll($customer_id);
+                $bill_no =  "COD-".$customer_id."-".time();
                 if($cart_detail > 0){
                     foreach($cart_detail as $detail){
                         $amount = $detail['pr_price'] * $detail['qty'];
-                        $orders->add($customer_id, $detail['product_id'], $detail['qty'], $payment_type, $amount, $order_date, $order_address);
+                        $orders->add($customer_id, $detail['product_id'], $detail['qty'], $payment_type, $amount, $order_date, $order_address, $bill_no);
                         $changeqty = $detail['pr_qty'] - $detail['qty'];
                         $PROD->updateProductQty($changeqty, $detail['product_id']);
                     }

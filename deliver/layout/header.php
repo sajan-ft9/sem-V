@@ -51,9 +51,9 @@ deliveryLogin();
                             <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="index.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                Orders
                             </a>
-                            <a class="nav-link" href="allcat.php">
+                            <!-- <a class="nav-link" href="allcat.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-grip-lines"></i></div>
                                 All Categories
                             </a>
@@ -66,7 +66,7 @@ deliveryLogin();
                                 <div class="sb-nav-link-icon"><i class="fas fa-grip-lines"></i></div>
                                 Feedbacks
                             </a>
-                            <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Layouts
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -81,7 +81,9 @@ deliveryLogin();
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Deliver
+                        <?php 
+                            echo $_SESSION['deliver'];
+                        ?>      
                     </div>
                 </nav>
             </div>

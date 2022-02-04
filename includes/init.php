@@ -8,6 +8,4 @@ require_once "../classes/cart.class.php";
 require_once "../classes/orders.class.php";
 require_once "../classes/wish.class.php";
 require_once "../classes/deliver.class.php";
-
-
-
+require_once "../classes/sales.class.php";

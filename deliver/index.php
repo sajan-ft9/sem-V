@@ -4,6 +4,9 @@ require_once "layout/header.php";
 $ORDERS = new Orders;
 ?>
 <h1>Pending Deliveries</h1>
+<?php 
+    if($ORDERS->showOrders() > 0){
+?>
 <table class="table table-dark table-striped">
     <thead>
         <tr>
@@ -15,7 +18,6 @@ $ORDERS = new Orders;
     <tbody>
         
             <?php 
-            if($ORDERS->showOrders() > 0){
                 foreach($ORDERS->showOrders() as $details){?>
                     <tr>
                         <td><?=$details['name']?></td>
@@ -29,10 +31,17 @@ $ORDERS = new Orders;
                     </tr>
                 <?php
                 }
-            }
+            
             ?>        
     </tbody>
 </table>
 <?php 
-require_once "layout/header.php";
+}else{
+    echo "
+          <div class='alert alert-success alert-d fade show' role='alert'>
+          <strong>Wow! No pending deliveries left.</strong> 
+          </div>";
+}
+
+require_once "layout/footer.php";
 ?>

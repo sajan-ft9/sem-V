@@ -1,3 +1,4 @@
 <?php 
-echo "Payment success";
+              echo  $bill_no =  "COD".time();
+
 ?>
