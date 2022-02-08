@@ -44,7 +44,7 @@ if($_SERVER["REQUEST_METHOD"] === "GET"){
                                                 <form action="toggle.php" method="post">
                                                     <input type="hidden" name="orderid" value="<?=$details['id']?>" required>
                                                     <input type="hidden" name="cus_id" value="<?=$cus_id?>" required>
-                                                    <button type="submit" class="btn btn-warning" name="delivery_confirm">Confirm Delivery</button>
+                                                    <button type="submit" class="btn btn-warning" name="delivery_confirm" onClick="return confirm('Confirm Delivery?')">Confirm Delivery</button>
                                                 </form>
                                         <?php
                                             }
@@ -59,7 +59,7 @@ if($_SERVER["REQUEST_METHOD"] === "GET"){
                                                 <form action="toggle.php" method="post">
                                                     <input type="hidden" name="orderid" value="<?=$details['id']?>" required>
                                                     <input type="hidden" name="cus_id" value="<?=$cus_id?>" required>
-                                                    <button type="submit" class="btn btn-info" name="payment_confirm">Confirm Payment</button>
+                                                    <button type="submit" class="btn btn-info" name="payment_confirm" onClick="return confirm('Confirm Payment?')">Confirm Payment</button>
                                                 </form>
                                         <?php
                                             }

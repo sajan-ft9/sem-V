@@ -6,20 +6,19 @@ require_once "layout/header.php";
 $customer_id = $_SESSION['customer_id'];
 $orders = new Orders();
 ?>
-<a href="ordersuccess.php" class="mb-2 btn btn-success">Click To View Success</a>
+<a href="orders.php" class="mb-2 btn btn-info">Click To View Pending</a>
 <?php
-if($orders->getSelected($customer_id) > 0){
-    $allorders = $orders->getSelected($customer_id);
+if($orders->getSelectedSold($customer_id) > 0){
+    $allorders = $orders->getSelectedSold($customer_id);
 ?>
 <div class="ordersss" style="height:500px; overflow-y:scroll;">
-<table class="table table-primary table-hover table-striped">
+<table class="table table-dark table-hover table-striped">
     <thead style="text-align: center;">
         <tr>
             <th colspan="2">Product</th>
             <th>Quantity</th>
             <th>Amount</th>
-            <th>Delivery Status</th>
-            <th>Payment</th>
+            <th>Received Date</th>
         </tr>
     </thead>
     <tbody style="text-align: center;">
@@ -30,22 +29,7 @@ if($orders->getSelected($customer_id) > 0){
                     <td><img src="../admin/uploads/<?=$all['pr_img']?>" alt="productimg" width="100px" height="100px"></td>
                     <td><?=$all['quantity']?></td>
                     <td><?=$all['amount']?></td>
-                    <td><?php 
-                        if($all['order_delivered'] == false){
-                            echo "<p style='color:red'>Pending</p>";
-                        }else{
-                            echo "<p style='color:green'>Delivered</p>";
-                        }
-                    
-                    ?></td>
-                    <td><?php 
-                        if($all['payment_received'] == false){
-                            echo "<i style='color:red'; class='fa fa-times'></i>";
-                        }else{
-                            echo "<i style='color:green' class = 'fas fa-check'></i>";
-                        }
-                    
-                    ?></td>
+                   <td><?=$all['order_date']?></td>
                 </tr>
         <?php
         } ?>

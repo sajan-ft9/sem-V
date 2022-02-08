@@ -31,7 +31,7 @@ if(!isset($_SESSION['order_placed'])){
     date_default_timezone_set('Asia/Kathmandu');
                 $order_date = date("Y-m-d H:i:s");
                 $cart_detail = $cart->getAll($customer_id);
-                $bill_no =  "COD-".$customer_id."-".time();
+                $bill_no =  "ES-".$customer_id."-".time();
                 if($cart_detail > 0){
                     foreach($cart_detail as $detail){
                         $amount = $detail['pr_price'] * $detail['qty'];

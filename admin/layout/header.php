@@ -53,6 +53,10 @@ checkLogin();
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
+                            <a class="nav-link" href="products.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Products
+                            </a>
                             <a class="nav-link" href="allcat.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-grip-lines"></i></div>
                                 All Categories

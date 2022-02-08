@@ -19,12 +19,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
                 if($SALES->checkProduct($product_id) > 0){
                     $quantity1 = $SALES->checkProduct($product_id)['sales_qty'] + $quantity; 
                     $SALES->update($quantity1, $product_id);
-                    $ORDER->delete($order_id);
                     header("location:$url");
                     die;
                 }else{
                     $SALES->add($product_id, $quantity);
-                    $ORDER->delete($order_id);
                     header("location:$url");
                     die;
                 }
@@ -46,12 +44,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
                 if($SALES->checkProduct($product_id) > 0){
                     $quantity1 = $SALES->checkProduct($product_id)['sales_qty'] + $quantity; 
                     $SALES->update($quantity1, $product_id);
-                    $ORDER->delete($order_id);
                     header("location:$url");
                     die;
                 }else{
                     $SALES->add($product_id, $quantity);
-                    $ORDER->delete($order_id);
                     header("location:$url");
                     die;
                 }
