@@ -7,25 +7,27 @@ if(isset($_SESSION['order_placed'])){
 }
 require_once "layout/header.php";
 $products = new Product();
+$SALES = new Sales;
 
 ?>
 <link rel="stylesheet" href="layout/css/productlist.css">
 <?php
-$banner = $products->getLast(); 
+$banner = $SALES->mostSales(); 
 if($banner > 0):
 ?>
-            <div class=" d-lg-flex flex-lg-row d-flex flex-column-reverse bg-light mt-2">
+            <div style="position: relative;" class=" d-lg-flex flex-lg-row d-flex flex-column-reverse bg-light mt-2">
                 <div class="p-5" id="2">
                     <p class="p-green"><?=$banner['pr_brand']?></p>
                     <P class="fs-4 fw-bold"><?=$banner['pr_name']?></P>
-                    <p class="fs-4 fw-bold"><?=$banner['pr_price']?></p>
+                    <p class="fs-4 fw-bold">Rs.<?=$banner['pr_price']?></p>
                     <p class="text-muted mb-4">Free Delivery Available</p>
                         <form action="buynow.php" method="post">
                                 <input type="hidden" name="product" value="<?=$banner['pr_id']?>" required>
-                                <button type="submit" name="buynow" class="btn btn-outline-primary w-100">BUY NOW</button> 
+                                <button type="submit" name="buynow" class="btn btn-primary w-100">BUY NOW</button> 
                         </form>
                 </div>
-                <div id="1"> <img src="../admin/uploads/<?=$banner['pr_img']?>" class="w-200 h-100" alt="banner img"> </div>
+                <marquee behavior="alternate" direction="right"><div id="1" class="front"><img src="../admin/uploads/<?=$banner['pr_img']?>" class="w-75 h-100" alt="banner img"></div></marquee>
+                <marquee style="position:absolute; top: 2px;left:10px;color:blue" behavior="alternate" width="200px;" direction=""><h3>Best Sales <i class="fas fa-shopping-bag"></i></h3></marquee>
             </div>
             <?php 
             endif; ?>

@@ -86,6 +86,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     }
   }
   // End Product Post
+
+  // Add Quantity
+  if(isset($_POST['addqty'])){
+    $err = "";
+    $quantity = clean($_POST['quantity']);
+    $id = clean($_POST['pid']);
+    $db_qty = $products->selected($id)['pr_qty']+ $quantity;
+    $db_stock = $products->selected($id)['stock'] + $quantity;
+    $products->addQuantity($db_qty, $db_stock, $id);
+  }
+  // End Add Quantity
 }
 
 
@@ -99,6 +110,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createProductModal">
   Add New Product
 </button>
+<a href="search.php" class="btn btn-info">Search</a>
 </div>
 
 
@@ -166,12 +178,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                         <p class="card-text"><?=$product['pr_desc']?></p>
                         <p class="text-end">Quantity: <?=$product['pr_qty']?></p>
                         <p class="text-end">Brand: <?=$product['pr_brand']?></p>
-                    </div>
-                    <div class="card-footer">
                         <small class="card-link">Category: <a href="category.php?id=<?=$product['ct_id']?>"><?=$product['ct_name']?></a></small>
+                      </div>
+                    <div class="card-footer">
                         <small class="card-link">Rs. <?=$product['pr_price']?></small>
-                        <small><a href="editForm.php?id=<?=$product['pr_id']?>" class="btn btn-warning btn-sm active">Edit</a></small>
+                        <small><a href="editForm.php?id=<?=$product['pr_id']?>" class="btn btn-warning btn-sm active">Edit</a></small>                     
                         <small><a href="delete.process.php?send=del&id=<?=$product['pr_id']?>&name=<?=$product['pr_img']?>" class="btn btn-danger btn-sm active" onClick="return confirm('Do you want to delete??')">Delete</a></small>
+                        <form action="" method="post">
+                          <input type="hidden" name="pid" value="<?=$product['pr_id']?>" required>
+                          <input style="width:80px" type="number" name="quantity" placeholder="add qty" required>
+                          <button type="submit" name="addqty" class="btn btn-primary btn-sm">Add Quantity</button>
+                        </form> 
                     </div>
                 </div>
             </div>   
@@ -187,6 +204,5 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
       endif;
     ?>
 </div>
-
 
 <?php require_once "layout/footer.php" ?>

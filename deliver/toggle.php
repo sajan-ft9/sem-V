@@ -1,7 +1,5 @@
 <?php
 
-use function GuzzleHttp\Psr7\str;
-
 if($_SERVER["REQUEST_METHOD"] === "POST"){
     require_once "../includes/init.php";
     $ORDER = new Orders;

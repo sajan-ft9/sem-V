@@ -14,7 +14,7 @@ $product = $products->editProduct($_GET['id']);
     $desc = clean($_POST['p_desc']);
     $category = clean($_POST['category']);
     $price = clean($_POST['price']);
-    $qty = clean($_POST['qty']);
+    // $qty = clean($_POST['qty']);
     $brand = clean($_POST['brand']);
     $filename = $_FILES["fileToUpload"] ["name"];
     $tempname = $_FILES["fileToUpload"] ["tmp_name"];
@@ -51,15 +51,15 @@ $product = $products->editProduct($_GET['id']);
       }
     }
     
-    if(empty($qty)) {
-      $err .= "Quantity required<br>";
-    }else{
-      if($qty < 0){
-        $err .= "Quantity cannot be negative.<br>";
-      }elseif($qty > 100000000) {
-        $err .= "Too much quantity product<br>";
-      }
-    }
+    // if(empty($qty)) {
+    //   $err .= "Quantity required<br>";
+    // }else{
+    //   if($qty < 0){
+    //     $err .= "Quantity cannot be negative.<br>";
+    //   }elseif($qty > 100000000) {
+    //     $err .= "Too much quantity product<br>";
+    //   }
+    // }
 
 
     if(empty($brand)) {
@@ -82,21 +82,21 @@ $product = $products->editProduct($_GET['id']);
         $newFileName = uniqid('', true) . "." . $imageFileType;
         $fileDestination = "uploads/".$newFileName;
         
-        $stock = $product['stock']+ $qty;
+        // $stock = $product['stock']+ $qty;
         
-        $products->updateProduct($name, $desc, $newFileName, $price, $qty, $category, $brand, $stock, $id);
+        $products->updateProduct($name, $desc, $newFileName, $price, $category, $brand, $id);
         
         move_uploaded_file($tempname, $fileDestination);
   
         unlink("uploads/$img_del");
     
-        echo "<script>window.location.replace('index.php')</script>";
+        echo "<script>window.location.replace('products.php')</script>";
         die;
       }else{
-        $stock = $product['stock']+ $qty;
+        // $stock = $product['stock']+ $qty;
 
-        $products->updateProduct($name, $desc, $img_del, $price, $qty, $category, $brand, $stock, $id);
-        echo "<script>window.location.replace('index.php')</script>";
+        $products->updateProduct($name, $desc, $img_del, $price, $category, $brand, $id);
+        echo "<script>window.location.replace('products.php')</script>";
         die;
 
       }
@@ -119,8 +119,8 @@ $product = $products->editProduct($_GET['id']);
                 <textarea class="form-control" type="text" name="p_desc" required><?=$product['pr_desc']?></textarea>
                 <label for="">Price</label>
                 <input class="form-control" type="number" name="price" value="<?=$product['pr_price']?>" required>
-                <label for="">Quantity</label>
-                <input class="form-control" type="number" name="qty" value="<?=$product['pr_qty']?>" required>
+                <!-- <label for="">Quantity</label>
+                <input class="form-control" type="number" name="qty" value="<?=$product['pr_qty']?>" required> -->
                 <label for="">Brand</label>
                 <input class="form-control" type="text" name="brand" value="<?=$product['pr_brand']?>" required>
                 <label for="">Category</label>

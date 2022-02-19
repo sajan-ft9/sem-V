@@ -11,7 +11,7 @@ $orders = new Orders();
 if($orders->getSelectedSold($customer_id) > 0){
     $allorders = $orders->getSelectedSold($customer_id);
 ?>
-<div class="ordersss" style="height:500px; overflow-y:scroll;">
+<div class="ordersss" style="max-height:450px; overflow-y:scroll;">
 <table class="table table-dark table-hover table-striped">
     <thead style="text-align: center;">
         <tr>

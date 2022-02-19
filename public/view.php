@@ -125,14 +125,19 @@ session_start();
                         <div class="form-group">
                             <input type="hidden" name="customer" value="<?php echo $_SESSION['customer_id']?>">
                             <input type="hidden" name="product" value="<?=$product['pr_id']?>">
-                        <label for="">Rate Product</label>
-                        <select class="form-control" style="color:#f3aa06;" name="ratepoint" required>
-                            <option value="5" selected>&#9733 &#9733 &#9733 &#9733 &#9733</option>
-                            <option value="4">&#9733 &#9733 &#9733 &#9733</option>
-                            <option value="3">&#9733 &#9733 &#9733</option>
-                            <option value="2">&#9733 &#9733</option>
-                            <option value="1">&#9733</option>
-                        </select>
+                        <label for="">Rate Product</label><br>
+                        <fieldset class="rating">
+                            <input type="radio" id="star5" name="ratepoint" value="5" required /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                            <input type="radio" id="star4half" name="ratepoint" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                            <input type="radio" id="star4" name="ratepoint" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                            <input type="radio" id="star3half" name="ratepoint" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                            <input type="radio" id="star3" name="ratepoint" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                            <input type="radio" id="star2half" name="ratepoint" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                            <input type="radio" id="star2" name="ratepoint" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                            <input type="radio" id="star1half" name="ratepoint" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                            <input type="radio" id="star1" name="ratepoint" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                            <input type="radio" id="starhalf" name="ratepoint" value="0.5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                        </fieldset>
                         </div>
                         <div class="form-group">
                             <textarea name="comment" id="" class="form-control" placeholder="Feedback" required></textarea>
@@ -182,6 +187,7 @@ session_start();
                                      
                                 ?>
                         </p>
+                        <p class="text-muted"><i class="fas fa-retweet"></i>:<?=$comment['feedback_reply'];?>- By Admin</p>
                             
                         </li>
               <?php

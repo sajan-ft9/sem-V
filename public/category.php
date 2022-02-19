@@ -10,8 +10,15 @@ require_once "layout/header.php";
 
 // $category = new Category();
 $result = $category->selectedCategory($_GET['id']);
-
-?>
+if(empty($result)){
+    ?>
+        <div class="p-2 text-center">
+            <h1 class="mt-4"><?=$category->selected($_GET['id'])["ct_name"]?></h1>
+            <p><?=$category->selected($_GET['id'])["ct_desc"]?></p>
+        </div>
+    <?php
+    }
+    ?>
 <link rel="stylesheet" href="layout/css/productlist.css">
 
   <div class="p-2 text-center">
@@ -66,7 +73,7 @@ $result = $category->selectedCategory($_GET['id']);
           <strong>No Products available for this category!</strong> 
           <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
           </div>
-          <a href='allcat.php' class='btn btn-info'>Go Back</a>";
+          <a href='index.php' class='btn btn-info'>Go Back</a>";
             endif;
         ?>
               </div>

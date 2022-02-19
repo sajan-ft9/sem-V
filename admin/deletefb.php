@@ -7,10 +7,20 @@ require_once "../classes/admin.class.php";
             $admin->delBadComment($id);
             header("location:allfeedback.php");
             die;
-        }else{
+        }
+        elseif (isset($_POST['reply'])) {
+            $id = $_POST['id'];
+            $reply = $_POST['fbreply'];
+            $admin = new Admin;
+            $admin->replyComment($reply, $id);
             header("location:allfeedback.php");
             die;
         }
+        else{
+            header("location:allfeedback.php");
+            die;
+        }
+
     }else{
         header("location:allfeedback.php");
             die;

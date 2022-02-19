@@ -49,7 +49,7 @@ if($WISH->getAll($_SESSION['customer_id']) > 0):
                                 <form action="delcomment.php" method="post">
                                     <input type="hidden" name="productid" value="<?=$list['pr_id']?>" required>
                                     <input type="hidden" name="customerid" value="<?php echo $_SESSION['customer_id']; ?>" required>
-                                    <button class="btn" type="submit" name="delwish"><i style="color:red; font-size:1.5rem" class="fas fa-trash"></i></button>
+                                    <button class="btn" type="submit" name="delwish" onclick="return(confirm('Do you wish to Delete?'))"><i style="color:red; font-size:1.5rem" class="fas fa-trash"></i></button>
                                 </form>
                             </div>
                             <form action=""></form>

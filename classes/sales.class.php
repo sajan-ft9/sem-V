@@ -44,14 +44,23 @@ class Sales extends Dbh {
         return $result;
     }
 
-    public function showOrders(){
-        $sql = "SELECT * FROM customers INNER JOIN orders WHERE customers.cus_id=orders.customer_id AND orders.sold = 0 GROUP BY customers.cus_id ORDER BY orders.order_date";
+    // public function showOrders(){
+    //     $sql = "SELECT * FROM customers INNER JOIN orders WHERE customers.cus_id=orders.customer_id AND orders.sold = 0 GROUP BY customers.cus_id ORDER BY orders.order_date";
+    //     $stmt = $this->connect()->prepare($sql);
+    //     $stmt->execute();
+
+    //     while($result = $stmt->fetchAll()) {
+    //         return $result;
+    //     }
+    // }
+
+    public function mostSales(){
+        $sql = "SELECT * FROM `sales` INNER JOIN products WHERE sales.product_id = products.pr_id ORDER BY sales_qty desc LIMIT 1";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
 
-        while($result = $stmt->fetchAll()) {
-            return $result;
-        }
+        $result = $stmt->fetch();
+        return $result;
     }
 
 }

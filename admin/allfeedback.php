@@ -24,12 +24,24 @@ require_once "layout/header.php";
             if($admin->allComments($cus_name) > 0){
             foreach($admin->allComments($cus_name) as $comment){
                 ?>
-                    <li><?=$comment['feedback']?> - <span class="text-success"><?=$comment['name']?></span class="text-danger">
+                    <li><?=$comment['feedback']?> - <span class="text-success"><?=$comment['name']?>
+                        <?php if(!empty($comment['feedback_reply'])){
+                            echo "-<span class='text-danger'>Replied:".$comment['feedback_reply']."</span>";
+                        } ?>
+                    </span>
                         <form action="deletefb.php" method="post">
                             <input type="hidden" name="id" value="<?=$comment['id']?>">
-                            <button type="submit" class="btn btn-danger" name="delfb">Delete</button>
+                            <input type="text" name="fbreply" required>
+                            <?php if(!empty($comment['feedback_reply'])){?>
+                                <button type="submit" class="btn btn-info" name="reply" onclick="return(confirm('Already replied.Update?'))">Reply</button>                                
+                            <?php
+                            }else{?>
+                                <button type="submit" class="btn btn-info" name="reply">Reply</button>
+                            <?php }
+                            ?>  
+                            <button type="submit" class="btn btn-danger" name="delfb" onclick="return(confirm('Confirm delete?'))">Delete</button>
                         </form>
-                    <span></span></li>
+                    </li>
                 <?php
             }
         }

@@ -36,10 +36,10 @@ class Product extends Dbh {
         return $result;
     }
 
-    public function updateProduct($name, $desc, $newFileName, $price, $qty, $category, $brand, $stock, $id) {
-        $sql = "UPDATE products set pr_name = ?, pr_desc = ?, pr_img = ?, pr_price = ?, pr_qty = ?, cat_id = ?, pr_brand = ?, stock = ? WHERE pr_id = ?";
+    public function updateProduct($name, $desc, $newFileName, $price, $category, $brand, $id) {
+        $sql = "UPDATE products set pr_name = ?, pr_desc = ?, pr_img = ?, pr_price = ?, cat_id = ?, pr_brand = ? WHERE pr_id = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$name, $desc, $newFileName, $price, $qty, $category, $brand, $stock, $id]);
+        $stmt->execute([$name, $desc, $newFileName, $price, $category, $brand, $id]);
     }
 
     public function updateProductQty($product, $changeqty){
@@ -52,6 +52,12 @@ class Product extends Dbh {
         $sql = "DELETE FROM products WHERE pr_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
+    }
+
+    public function addQuantity($quantity, $stock, $id){
+        $sql = "UPDATE products set pr_qty = ? , stock = ? WHERE pr_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$quantity, $stock, $id]);
     }
 
     public function getLast(){

@@ -13,6 +13,16 @@ class Orders extends Dbh {
         }
     }
 
+    public function pendingOrders(){
+        $sql = "SELECT * FROM `orders` WHERE sold = 0";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+
+        while($result = $stmt->fetchAll()) {
+            return $result;
+        }
+    }
+
     public function getSelected($customer_id){
         $sql = "SELECT * FROM `orders` INNER JOIN products WHERE products.pr_id = productid AND customer_id = ? AND sold = 0 ORDER BY orders.order_date DESC";
         $stmt = $this->connect()->prepare($sql);
@@ -89,8 +99,25 @@ class Orders extends Dbh {
         }
     }
 
-    public function dailySales(){
-        $sql = "SELECT DATE(order_date), SUM(amount) FROM orders WHERE sold = 1 GROUP BY DATE(order_date)";
+    public function dashboardEarnings($time){
+        date_default_timezone_set('Asia/Kathmandu');
+        if($time == 'daily'){
+            $req_date = date("Y-m-d");
+            $sql = "SELECT DATE(order_date),SUM(amount)
+            FROM orders WHERE DATE(order_date) = '$req_date'
+            GROUP BY DATE(order_date)";
+        }if($time == 'monthly'){
+            $year = date("Y"); $month = date("m");
+            $sql = "SELECT MONTH(order_date),SUM(amount)
+            FROM orders WHERE YEAR(order_date) = '$year' AND MONTH(order_date) = '$month'
+            GROUP BY MONTH(order_date)";
+        }if($time == 'yearly'){
+            $year = date("Y");
+            $sql = "SELECT YEAR(order_date),SUM(amount)
+            FROM orders WHERE YEAR(order_date) = '$year'
+            GROUP BY YEAR(order_date)";
+        }
+        
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
 
@@ -98,5 +125,23 @@ class Orders extends Dbh {
             return $result;
         }
     }    
+
+    public function filterGraph($time){
+        if($time == 'MONTH'){
+            $sql = "SELECT YEAR(order_date), MONTHNAME(order_date),SUM(amount)
+                    FROM orders
+                    GROUP BY YEAR(order_date), $time(order_date)";
+        }else{
+            $sql = "SELECT YEAR(order_date), $time(order_date),SUM(amount)
+                    FROM orders
+                    GROUP BY YEAR(order_date), $time(order_date)";
+        }       
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+
+        while($result = $stmt->fetchAll()) {
+            return $result;
+        }
+    }
 
 }

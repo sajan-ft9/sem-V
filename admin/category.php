@@ -9,13 +9,22 @@ require_once "../includes/init.php";
 
 $category = new Category();
 $result = $category->selectedCategory($_GET['id']);
-
+if(empty($result)){
+?>
+    <div class="d-flex flex-row">
+    <div class="p-2">
+        <h1 class="mt-4"><?=$category->selected($_GET['id'])["ct_name"]?></h1>
+        <h4><?=$category->selected($_GET['id'])["ct_desc"]?></h4>
+    </div>
+    </div>
+<?php
+}
 ?>
 <div class="d-flex flex-row">
   <div class="p-2">
-  <h1 class="mt-4"><?=$result[0]["ct_name"]?></h1>
+    <h1 class="mt-4"><?=$result[0]["ct_name"]?></h1>
+    <h4><?=$result[0]["ct_desc"]?></h4>
   </div>
-
 </div>
 <div class="d-flex flex-row-reverse">
   <div class="p-2">
@@ -50,8 +59,8 @@ $result = $category->selectedCategory($_GET['id']);
           <div class='alert alert-danger alert-dismissible fade show' role='alert'>
           <strong>No Products available for this category!</strong> 
           <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-          </div>
-          <a href='allcat.php' class='btn btn-info'>Go Back</a>";
+          <a href='allcat.php' class='btn btn-info'>Go Back</a>
+          </div>";
             endif;
         ?>
               </div>

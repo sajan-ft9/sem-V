@@ -54,6 +54,10 @@ class Admin extends Dbh {
         $stmt->execute([$id]);
     }
 
-
+    public function replyComment($reply, $id) {
+        $sql = "UPDATE rating SET feedback_reply = ? WHERE id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$reply, $id]);
+    }
 
 }
