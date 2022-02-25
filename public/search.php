@@ -55,6 +55,7 @@ if(isset($_POST['search'])):
             endif;
             ?>
         </div>
+        
 <?php
 else:
     header("Location:index.php");
@@ -64,4 +65,4 @@ endif;
 
 
 
-<?php require_once "layout/header.php" ?>
+<?php require_once "layout/footer.php" ?>

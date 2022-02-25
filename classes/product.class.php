@@ -146,11 +146,45 @@ class Product extends Dbh {
     }
 
     public function searchItem($name){
-        $sql = "SELECT * FROM products INNER JOIN categories WHERE (products.pr_name LIKE '%$name%' OR products.pr_desc LIKE '%$name%' OR categories.ct_name LIKE '%$name%') AND products.cat_id = categories.ct_id";
+        $sql = "SELECT * FROM products INNER JOIN categories INNER JOIN sales WHERE (products.pr_name LIKE '%$name%' OR products.pr_desc LIKE '%$name%' OR categories.ct_name LIKE '%$name%' OR products.pr_brand LIKE '%$name%') AND ((products.cat_id = categories.ct_id) AND (products.pr_id = sales.product_id)) ORDER BY sales.sales_qty DESC";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
         while($result = $stmt->fetchAll()) {
             return $result;
         }    
     }
+
+    public function relatedProduct($category, $brand, $id){
+        $sql = "SELECT * FROM `products`
+                INNER JOIN sales INNER JOIN categories 
+                WHERE ((cat_id = ? or pr_brand = ?) AND pr_id !=?) 
+                AND ( products.pr_id=sales.product_id AND products.cat_id = categories.ct_id )
+                 ORDER BY sales.sales_qty DESC limit 2";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$category, $brand, $id]);
+        while($result = $stmt->fetchAll()) {
+            return $result;
+        }    
+    }
+
+    public function relatedProduct2($category, $brand, $id){
+        $sql = "SELECT * FROM `products` 
+        WHERE NOT EXISTS 
+        (SELECT * FROM sales WHERE sales.product_id = products.pr_id) AND (cat_id = ? or pr_brand = ?) AND products.pr_id != ? limit 2";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$category, $brand, $id]);
+        while($result = $stmt->fetchAll()) {
+            return $result;
+        }    
+    }
+
+    public function salesRelated($id){
+        $sql = "SELECT * FROM `sales` INNER JOIN products WHERE products.pr_id != ? AND (sales.product_id = products.pr_id) ORDER BY sales_qty desc LIMIT 4";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+        while($result = $stmt->fetchAll()) {
+            return $result;
+        }    
+    }
+
 }

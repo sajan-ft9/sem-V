@@ -15,7 +15,7 @@ $SALES = new Sales;
 $banner = $SALES->mostSales(); 
 if($banner > 0):
 ?>
-            <div style="position: relative;" class=" d-lg-flex flex-lg-row d-flex flex-column-reverse bg-light mt-2">
+            <div style="position: relative;" class="d-lg-flex flex-lg-row d-flex flex-column-reverse bg-light mt-2 ">
                 <div class="p-5" id="2">
                     <p class="p-green"><?=$banner['pr_brand']?></p>
                     <P class="fs-4 fw-bold"><?=$banner['pr_name']?></P>
@@ -26,8 +26,10 @@ if($banner > 0):
                                 <button type="submit" name="buynow" class="btn btn-primary w-100">BUY NOW</button> 
                         </form>
                 </div>
-                <marquee behavior="alternate" direction="right"><div id="1" class="front"><img src="../admin/uploads/<?=$banner['pr_img']?>" class="w-75 h-100" alt="banner img"></div></marquee>
-                <marquee style="position:absolute; top: 2px;left:10px;color:blue" behavior="alternate" width="200px;" direction=""><h3>Best Sales <i class="fas fa-shopping-bag"></i></h3></marquee>
+                <marquee behavior="alternate" direction="right" scrollamount = "1">
+                    <div id="1" class="front"><img src="../admin/uploads/<?=$banner['pr_img']?>" class="w-75 h-100" alt="banner img"></div>
+                </marquee>
+                <marquee style="position:absolute; top: 2px;left:10px;color:green" behavior="alternate" width="200px;" direction=""><h3>Best Sales <i class="fas fa-shopping-bag"></i></h3></marquee>
             </div>
             <?php 
             endif; ?>
@@ -68,6 +70,7 @@ if($banner > 0):
                     </div>
                     </div>
                 </div>
+                
             <?php    
                 endforeach;
             else:

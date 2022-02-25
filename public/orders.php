@@ -11,7 +11,7 @@ $orders = new Orders();
 if($orders->getSelected($customer_id) > 0){
     $allorders = $orders->getSelected($customer_id);
 ?>
-<div class="ordersss" style="height:500px; overflow-y:scroll;">
+<div class="ordersss" style="max-height:500px; overflow-y:scroll;">
 <table class="table table-primary table-hover table-striped">
     <thead style="text-align: center;">
         <tr>
@@ -66,7 +66,8 @@ if($orders->getSelected($customer_id) > 0){
         </tr>
     </tfoot>
 </table>
-</div>
+
+
 <?php
     
 
@@ -79,6 +80,7 @@ if($orders->getSelected($customer_id) > 0){
 }
 ?>
 
-
+</div>
+</div>
 
 <?php require_once "layout/footer.php" ?>

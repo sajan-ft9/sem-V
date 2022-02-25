@@ -8,14 +8,14 @@
 
 .card {
     position: relative;
-    background-color: #c1e8ed;
+    background: radial-gradient(#cce6e9,rgb(66, 217, 243));
     width: 600px;
-    height: 370px;
+    max-height:fit-content;
     padding: 10px;
     border: 1px solid #eee
 }
 .card:hover{
-    background: linear-gradient(to right,  #85dae6,  #cce6e9);
+    background: radial-gradient(rgb(66, 217, 243), #69fdd1);
 }
 @media screen and (max-width: 770px) {
     .card {
@@ -61,14 +61,27 @@
 }
 
 .feedback{
-  
     border-radius: 10px;
-    background:linear-gradient(to right, rgb(96, 125, 218), rgb(167, 191, 243))
+    background: #000000;
+    animation-name: example;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
 }
+
 .feedback:hover{
-    border-radius: 10px;
-    background:linear-gradient(to left, rgb(96, 125, 218), rgb(167, 191, 243))
+    animation-play-state: running;
 }
+
+@keyframes example{
+    from {background-color: rgb(0, 0, 0);}
+    to {} 50%{
+    background-color: rgba(0,0,0,0.4);
+  }
+    99%{background-color: rgba(0,0,0,0.9);
+    }
+}
+
 .feedback .inner{
     display: flex;
   align-items: center;
@@ -80,7 +93,7 @@
     margin-top: 5px;
 }
 .oldfeed{
-    height: 250px;
+    max-height: 250px;
     overflow-y:scroll;
 }
 .oldfeed ol{
@@ -147,3 +160,23 @@ h1 { font-size: 1.5em; margin: 10px; } */
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+
+
+
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    /* background-color: #72b0e4; */
+    padding: 10px;
+  }
+  .grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+  }
+  

@@ -145,3 +145,4 @@ class Orders extends Dbh {
     }
 
 }
+?>

@@ -1,6 +1,6 @@
 </div>
 </div>
-</div>
+<!-- </div> -->
 </body>
   <!-- Site footer -->
   <footer class="site-footer mt-5">
@@ -42,5 +42,7 @@
           </div>
         </div>
       </div>
+
 </footer>
+</div>
 </html>

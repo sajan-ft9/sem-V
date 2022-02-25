@@ -16,7 +16,7 @@ session_start();
         $product = $products->selected($id);  
             if(count($product) > 1):
         ?>
-        <div class="card mb-3" style="max-width: 600px;">
+        <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-6">
                     <a href="../admin/uploads/<?=$product['pr_img']?>">
@@ -28,8 +28,11 @@ session_start();
                 <div class="card-body">
                     <h4 class="card-title"><?=$product['pr_name']?></h4>
                     <p class="card-text"><small class="text-muted"><?=$product['ct_name']?></small></p>
+                    <strong>Brand:</strong><?=$product['pr_brand']?>
+
                     <p class="card-text"><?=$product['pr_desc']?></p>
                     <h5>Rs.<?=$product['pr_price']?></h5>
+
                     
                     <span class="card-text text-muted"> Rating: <?php echo $products->getStar($product['pr_id'])['rating'] > 0 ? $products->getStar($product['pr_id'])['rating']."/5" : "No reviews yet!" ?></span>                    
                     <ul class="rating-stars">
@@ -114,7 +117,7 @@ session_start();
         ?>
     </div>
   </div>
-  <div class="feedback text-center border mb-4 p-2 bg-dark text-light">
+  <div class="feedback text-center border mb-4 p-2 text-light">
       <h2>Feedback & Rating</h2>
       <?php 
         if(cLogged()):
@@ -198,6 +201,78 @@ session_start();
           </ol>
       </div>
   </div>
+  </div>
+
+<!-- Related -->
+<div>
+    <h2>Related Products</h2>
+<div class="card-group">
+    <?php 
+     $related_pr1 = $products->relatedProduct($product['cat_id'],$product['pr_brand'], $id);
+     $related_pr2 = $products->relatedProduct2($product['cat_id'],$product['pr_brand'], $id);
+     $prd3=$products->salesRelated($id);
+
+     if(($related_pr1 && $related_pr2) > 0):   
+        if($related_pr1 > 0):
+            foreach($related_pr1 as $prod):
+    ?>
+  <div class="col-lg-3">
+        <a href="view.php?id=<?=$prod['pr_id']?>">
+            <div style="height:200px; width:200px;"><img width="200px" height="200px" src="../admin/uploads/<?=$prod['pr_img']?>" class="card-img-top" alt="..."></div>
+        </a>
+            <div class="card-body">
+            <h5 class="card-title"><?=$prod['pr_name']?></h5>
+            <p class="card-text"><strong>Rs.</strong><?=$prod['pr_price']?></p>
+            </div>
+        
+  </div>
+    <?php
+        endforeach;
+    endif;
+    if($related_pr2):
+        foreach($related_pr2 as $prod):
+?>
+        <div class="col-lg-3">
+                <a href="view.php?id=<?=$prod['pr_id']?>">
+                    <div style="height:200px; width:200px;"><img width="200px" height="200px" src="../admin/uploads/<?=$prod['pr_img']?>" class="card-img-top" alt="..."></div>
+                    <div class="card-body">
+                </a>
+                    <h5 class="card-title"><?=$prod['pr_name']?></h5>
+                    <p class="card-text"><strong>Rs.</strong><?=$prod['pr_price']?></p>
+                    </div>
+                
+        </div>
+<?php
+    endforeach;
+endif;
+elseif($prd3 > 0):
+    foreach($prd3 as $prod):
+?>
+<div class="col-lg-3">
+    <a href="view.php?id=<?=$prod['pr_id']?>">
+        <div style="height:200px; width:200px;"><img width="200px" height="200px" src="../admin/uploads/<?=$prod['pr_img']?>" class="card-img-top" alt="..."></div>
+        <div class="card-body">
+    </a>
+        <h5 class="card-title"><?=$prod['pr_name']?></h5>
+        <p class="card-text"><strong>Rs.</strong><?=$prod['pr_price']?></p>
+        </div>
+</div>
+<?php
+endforeach;
+
+else:
+        echo "
+            <div class='alert alert-info alert-dismissible fade show' role='alert'>
+                <strong>Alert!</strong> No product available. 
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>
+            ";
+    endif;
+    ?>
+</div>
+</div>
+<!-- related close -->
+  
 <?php
 
     require_once "layout/footer.php"; 
@@ -213,8 +288,4 @@ session_start();
         document.getElementById('qty').value =  parseInt(qty) - 1;
         
     }
-
 </script>
-<?php 
-
-?>

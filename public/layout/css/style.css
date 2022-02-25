@@ -6,8 +6,47 @@
 }
 
 body {
-  background: #96d1fc
+  background: radial-gradient(rgb(92, 157, 255),rgb(63, 217, 255));
 }
+.container-out{
+  background:radial-gradient(circle at 1%,rgba(255, 255, 255),rgba(0, 0, 0, 0.1));
+  animation-name: moving;
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+    
+}
+
+@keyframes moving{
+  from{ 
+  background:radial-gradient(circle at 1%,rgb(48, 255, 210),rgba(0, 0, 0, 0.1));
+  }to {
+  } 
+  12%{
+    background:radial-gradient(circle at 25%,rgb(60, 247, 169),rgba(0, 0, 0, 0.1));
+  }
+  25%{
+    background:radial-gradient(circle at 50%,rgb(168, 255, 229),rgba(0, 0, 0, 0.1));
+  }
+  37%{
+    background:radial-gradient(circle at 75%,rgb(128, 255, 206),rgba(0, 0, 0, 0.1));
+  }
+  50%{
+    background:radial-gradient(circle at 100%,rgb(48, 255, 210),rgba(0, 0, 0, 0.1));
+  }
+  67%{
+    background:radial-gradient(circle at 75%,rgb(128, 255, 206),rgba(0, 0, 0, 0.1));
+  }
+  75%{
+    background:radial-gradient(circle at 50%,rgb(168, 255, 229),rgba(0, 0, 0, 0.1));
+  }
+  87%{
+    background:radial-gradient(circle at 25%,rgb(204, 255, 234),rgba(0, 0, 0, 0.1));
+  }
+  99%{
+    background:radial-gradient(circle at 1%,rgb(48, 255, 210),rgba(0, 0, 0, 0.1));
+  }
+}
+
 
 .front{
   height: 300px;
@@ -64,7 +103,7 @@ a.fas {
     background: #555; 
   }
 .collapse.show{
-    max-height: 320px;
+    max-height: 325px;
     overflow-y: scroll;
 }
 .google{
@@ -82,11 +121,14 @@ a.fas {
 /* footer */
 .site-footer
 {
-  background-color:#26272b;
+  background:radial-gradient(rgba(0, 0, 0, 1),rgba(0, 0, 0, 0.7));
   padding:45px 0 20px;
   font-size:15px;
   line-height:24px;
-  color:#737373;
+  color:#e4e4e4;
+}
+.site-footer:hover{
+  background:radial-gradient(rgba(0, 0, 0, 1),rgba(0, 0, 0, 0.6));
 }
 .site-footer hr
 {
@@ -125,7 +167,7 @@ a.fas {
 }
 .footer-links a
 {
-  color:#737373
+  color:#ffffff
 }
 .footer-links a:active,.footer-links a:focus,.footer-links a:hover
 {
@@ -193,7 +235,7 @@ a.fas {
 }
 .social-icons a{
   background-color:#eceeef;
-  color:#818a91;
+  color:#e3f3ff;
   font-size:16px;
   display:inline-block;
   line-height:44px;
@@ -220,7 +262,7 @@ a.fas {
 }
 .social-icons a.facebook:hover
 {
-  background-color:#3b5998
+  background-color:#6994f1
 }
 .social-icons a.twitter:hover
 {

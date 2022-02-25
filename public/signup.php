@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] = "POST"){
     }
 }
 ?>
-    <div style="border-radius: 10px;" class="col-md-6 col-lg-12 bg-info p-5">
+    <div class="col-md-6 col-lg-12 p-5">
         <form action="" method="post">
                 <label  for="">Full Name</label>
                 <input class="form-control" type="text" name="name" placeholder="e.g. Fernando Torres" required>
@@ -70,7 +70,7 @@ if($_SERVER['REQUEST_METHOD'] = "POST"){
                 <input class="form-control" type="password" name="password" required>
                 <label for="">Confirm Password</label>
                 <input class="form-control" type="password" name="cpassword" required>
-                <div class="mt-2 text-center bg-info">
+                <div class="mt-2 text-center">
                 <button style="width: 200px;" class="btn btn-outline-dark" type="submit" name="signup">Signup</button>
                 <p>Already have account?<a href="login.php">Login</a></p>
                 </div>
@@ -84,14 +84,14 @@ if($_SERVER['REQUEST_METHOD'] = "POST"){
             ?>
             <form action="gsign.php" method="post">
                 <input class="form-control" type="tel" name="contactgmail" placeholder="Phone Number" required>
-                <div class="mt-2 text-center bg-info">
+                <div class="mt-2 text-center">
                 <button class="google" type="submit" name="gmailsign">Signup with Google</button>
                 </div>
             </form>
         </div>
     </div>
 
-
+</div>
 
 
 <?php require_once "layout/footer.php" ?>

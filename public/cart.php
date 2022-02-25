@@ -9,9 +9,11 @@ if(!isset($_SESSION['customer'])){
         Please login to access cart! <a href='login.php' class='alert-link'>Login</a>
     </div>
 ";
-    die;
-}
+echo "</div>";
+require_once "layout/footer.php";
 
+die();
+}
 
 if(isset($_SESSION['customer'])){
 
@@ -80,12 +82,12 @@ if(isset($_SESSION['customer'])){
             endif; 
         ?>
     </table>
+        
     <?php
     
 }
-require_once "layout/footer.php";    
-
 ?>
+</div>
 
 <?php 
                 if($cart->getAll($_SESSION['customer_id']) > 0):
@@ -140,4 +142,6 @@ require_once "layout/footer.php";
 <?php 
 }
 endif;
- ?>
+require_once "layout/footer.php";
+?>
+

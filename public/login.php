@@ -60,6 +60,7 @@ if($_SERVER['REQUEST_METHOD']== "POST"){
     <div class="text-center fs-6"> <a href="#">Forget password?</a> or <a href="signup.php">Sign up</a> </div>
 </div>
 </div>
+</div>
 <?php 
 require_once "layout/footer.php";
 ?>
