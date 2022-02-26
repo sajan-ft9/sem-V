@@ -66,8 +66,6 @@ if($orders->getSelected($customer_id) > 0){
         </tr>
     </tfoot>
 </table>
-
-
 <?php
     
 
@@ -80,7 +78,6 @@ if($orders->getSelected($customer_id) > 0){
 }
 ?>
 
-</div>
 </div>
 
 <?php require_once "layout/footer.php" ?>

@@ -10,12 +10,12 @@ if(isset($_POST['feedback'])):
     if($products->notRated($customer, $productid)):
         $products->addComment($customer, $ratepoint, $comment, $productid);
         header("location:view.php?id=$productid");
-        die;    
+        die;
     else:
+        $products->updateComment($ratepoint, $comment, $customer, $productid);
         header("location:view.php?id=".$productid);
         die;
     endif;
-    
 else:
     echo "<script>window.location.replace('index.php')</script>";
     die;

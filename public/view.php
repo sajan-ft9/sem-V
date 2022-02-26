@@ -168,11 +168,22 @@ session_start();
                             <b><?=$comment['name']?> <span style="color: #f3aa06;" title="rating given">
                                 <?php
                                 echo "(";
-                                for ($i=1; $i <= $comment['rate_points'] ; $i++) { 
-                                    echo "&#9733";
-                                }
-                                echo ")";
                                 ?>
+                        <ul class="rating-stars">
+                            <li style="width:<?=($comment['rate_points']/5)*100?>%" class="stars-active">
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </li>
+                            <li>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </li>                    
+                        </ul>
+                            <?php
+                                echo ")";
+                            ?>
                             </span></b>
                             <p><?=$comment['feedback']?>  
                                 <?php 
@@ -190,8 +201,9 @@ session_start();
                                      
                                 ?>
                         </p>
+                        <?php if(!empty($comment['feedback_reply'])){ ?>
                         <p class="text-muted"><i class="fas fa-retweet"></i>:<?=$comment['feedback_reply'];?>- By Admin</p>
-                            
+                            <?php } ?>
                         </li>
               <?php
                     endforeach;

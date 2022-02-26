@@ -51,6 +51,7 @@ if($orders->getSelectedSold($customer_id) > 0){
     </tfoot>
 </table>
 </div>
+
 <?php
     
 
@@ -62,7 +63,7 @@ if($orders->getSelectedSold($customer_id) > 0){
     ";
 }
 ?>
-
+</div>
 
 
 <?php require_once "layout/footer.php" ?>

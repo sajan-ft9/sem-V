@@ -2,7 +2,7 @@
 require_once "../classes/dbh.class.php";
 
 class Product extends Dbh {
-    public function getProduct() {
+    public function getProduct(){
         $sql = "SELECT * FROM `products` INNER JOIN categories WHERE cat_id = categories.ct_id";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
@@ -10,6 +10,28 @@ class Product extends Dbh {
         while($result = $stmt->fetchAll()) {
             return $result;
         }
+    }
+
+    public function getProductPagination($page) {
+        if(empty($page)){
+            $page = 1;
+        }
+        $x = ($page -1)*2;
+        $sql = "SELECT * FROM `products` INNER JOIN categories WHERE cat_id = categories.ct_id LIMIT $x, 2";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+
+        while($result = $stmt->fetchAll()) {
+            return $result;
+        }
+    }
+
+    public function totalEntries(){
+        $sql = "SELECT COUNT(*) FROM products";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result;
     }
 
     public function selected($id) {
@@ -122,6 +144,12 @@ class Product extends Dbh {
         $stmt->execute([$customer, $ratepoint, $comment, $productid]);
     }
     
+    public function updateComment($ratepoint, $comment, $customer, $productid) {
+        $sql = "UPDATE `rating` SET `rate_points`= ?,`feedback`=? WHERE customer_id = ? AND product_id = ?";
+        $stmt= $this->connect()->prepare($sql);
+        $stmt->execute([$ratepoint, $comment, $customer, $productid]);
+    }
+
     public function getStar($id){
         if(is_array($this->getRating($id))){
             $total = count($this->getRating($id));            

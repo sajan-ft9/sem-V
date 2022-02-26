@@ -7,6 +7,8 @@ if(isset($_SESSION['order_placed'])){
 }
 require_once "layout/header.php";
 $products = new Product();
+$totalPages = ($products->totalEntries()['COUNT(*)'])/2;
+
 $SALES = new Sales;
 
 ?>
@@ -34,10 +36,33 @@ if($banner > 0):
             <?php 
             endif; ?>
         </div>
+
+
         <div class="row g-1 mt-4 mb-2">
-            <?php 
-            if($products->getProduct() > 0):
-                foreach($products->getProduct() as $product):
+                    <!-- Pagination -->
+        <nav aria-label="Page navigation example">
+            <ul id="prd" class="pagination" style="max-width:300px;overflow-x: auto;">
+            <li class="page-item"><a class="page-link" href="#">Page</a></li>
+                
+                <?php
+                for ($i=1; $i <= $totalPages; $i++) {
+                ?>
+                    <li class="page-item"><a class="page-link" href="index.php?page=<?=$i?>&#prd">
+                       <?php echo $i; ?>
+                    </a></li>
+                <?php }
+                if(isset($_GET['page'])){
+                    $page = $_GET['page'];
+                }else{
+                    $page = 1;
+                }
+                ?>
+              </ul>
+        </nav>
+        <!-- Pagination -->
+        <?php
+            if($products->getProductPagination($page) > 0):
+                foreach($products->getProductPagination($page) as $product):
             ?>
                 <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1">    
                     <div class="card p-2 ml-5 border">

@@ -9,6 +9,9 @@ if(!isset($_SESSION['customer'])){
         Please login to access wishlist! <a href='login.php' class='alert-link'>Login</a>
     </div>
 ";
+echo "</div>";
+require_once "layout/footer.php";
+
     die;
 }
 
