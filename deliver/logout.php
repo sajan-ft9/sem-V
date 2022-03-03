@@ -1,9 +1,9 @@
 <?php 
 require_once "../helpers/functions.php";
 session_start();
-// deliverLogin();
 if(isset($_SESSION['deliver'])) {
-    session_destroy();
+    unset($_SESSION['deliver']);
+    unset($_SESSION['deliverid']);
     header("location:../index.php");
     die;
 }

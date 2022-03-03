@@ -1,7 +1,7 @@
 <?php
 require_once "../helpers/functions.php";
 customerLogin();
-// session_start();
+
 if(isset($_GET['refId'])){
 require_once 'setting.php';
 

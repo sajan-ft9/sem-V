@@ -23,6 +23,7 @@ if($ORDERS->allOrders() > 0){
             <th colspan="2">Product</th>
             <th>Quantity</th>
             <th>Amount</th>
+            <th>Bill No.</th>
             <th>Delivery Status</th>
             <th>Payment</th>
         </tr>
@@ -35,6 +36,7 @@ if($ORDERS->allOrders() > 0){
                     <td><img src="../admin/uploads/<?=$all['pr_img']?>" alt="productimg" width="100px" height="100px"></td>
                     <td><?=$all['quantity']?></td>
                     <td><?=$all['amount']?></td>
+                    <td><?=$all['bill_no']?></td>
                     <td><?php 
                         if($all['order_delivered'] == false){
                             echo "<p style='color:red'>Pending</p>";

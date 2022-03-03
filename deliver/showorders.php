@@ -19,6 +19,7 @@ if($_SERVER["REQUEST_METHOD"] === "GET"){
                         <th>Amount</th>
                         <th>Order Date</th>
                         <th>Bill No</th>
+                        <th>Address</th>
                         <th>Delivery</th>
                         <th>Payment</th>
                         <!-- <th>Action</th> -->
@@ -35,6 +36,7 @@ if($_SERVER["REQUEST_METHOD"] === "GET"){
                                     <td><?=number_format($details['amount'], 2)?></td>
                                     <td><?=$details['order_date']?></td>
                                     <td><?=$details['bill_no']?></td>
+                                    <td><?=$details['order_address']?></td>
                                     <td>
                                         <?php
                                             if($details['order_delivered'] === '1'){

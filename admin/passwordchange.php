@@ -1,7 +1,7 @@
 <?php 
 $title= "Change Password";
 require_once "layout/header.php"; 
-$DELIVER = new Deliver();
+// $DELIVER = new Deliver();
 if($_SERVER['REQUEST_METHOD']=== "POST"){
     if(isset($_POST['passChange'])) {
         $admin = new Admin();

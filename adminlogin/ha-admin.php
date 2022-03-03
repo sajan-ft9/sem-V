@@ -2,11 +2,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <div class="container login-container">
-<a class="btn btn-primary mt-3" href="../index.php">Home</a>
+    <div class="text-center"> <h1>Admin</h1> </div>
 
-            <div class="row">
-                <div class="col-md-6 m-auto login-form-1">
-                    <h3>Login</h3>
+            <div class="mt-4" style="display:flex; justify-content:center; align-self:center">
                     <form method="POST">
                         <div class="form-group">
                             <input class="form-control" type="text" name="username" class="form-control" placeholder="Username *" required/>
@@ -14,14 +12,12 @@
                         <div class="form-group mt-2">
                             <input class="form-control" type="password" name="password" class="form-control" placeholder="Your Password *" value="" required/>
                         </div>
-                        </div>
                         <div class="form-group mt-2">
                             <input class="btn btn-info" type="submit" name="adminlogin" class="btnSubmit" value="Login" />
+                            <a class="btn btn-secondary" href="../index.php">Go Back</a>
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
 
 <?php  
     
@@ -58,8 +54,8 @@ if(isset($_SESSION['logged'])){
                         $date=strtotime(date("h:i:s"))+900;
                         $otp_time=date("Y-m-d h:i:s",$date);
                         $admin->otpUpdate($otp, $otp_time);
-                        sendMail($otp);
                         $_SESSION['ha-admin'] = true;
+                        sendMail($otp);
                         header("Location:otpverify.php");
                         die;
                     }

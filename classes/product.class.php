@@ -12,12 +12,22 @@ class Product extends Dbh {
         }
     }
 
+public function recommendedProduct($id){
+        $sql = "SELECT * FROM products WHERE cat_id = (SELECT cat_id FROM orders INNER JOIN products WHERE orders.customer_id = $id AND orders.productid = products.pr_id GROUP BY cat_id ORDER BY RAND () LIMIT 1)";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+
+        while($result = $stmt->fetchAll()) {
+            return $result;
+        }
+    }
+
     public function getProductPagination($page) {
         if(empty($page)){
             $page = 1;
         }
-        $x = ($page -1)*2;
-        $sql = "SELECT * FROM `products` INNER JOIN categories WHERE cat_id = categories.ct_id LIMIT $x, 2";
+        $x = ($page -1)*9;
+        $sql = "SELECT * FROM `products` INNER JOIN categories WHERE cat_id = categories.ct_id LIMIT $x, 9";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
 
@@ -89,6 +99,15 @@ class Product extends Dbh {
         $result = $stmt->fetch();
         return $result;
     }
+
+    public function checkAvailable($productid, $qty){
+        $sql = "SELECT * FROM `products` WHERE pr_id = $productid AND pr_qty < $qty";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['pr_name'];
+    }
+
 
     // public function getRating($id) {
     //     $sql = "SELECT * FROM `products` INNER JOIN rating WHERE pr_id = rating.product_id AND pr_id = ?";
@@ -174,7 +193,9 @@ class Product extends Dbh {
     }
 
     public function searchItem($name){
-        $sql = "SELECT * FROM products INNER JOIN categories INNER JOIN sales WHERE (products.pr_name LIKE '%$name%' OR products.pr_desc LIKE '%$name%' OR categories.ct_name LIKE '%$name%' OR products.pr_brand LIKE '%$name%') AND ((products.cat_id = categories.ct_id) AND (products.pr_id = sales.product_id)) ORDER BY sales.sales_qty DESC";
+        $sql = "SELECT * FROM products INNER JOIN categories 
+        INNER JOIN sales 
+        WHERE (products.pr_name LIKE '%$name%' OR products.pr_desc LIKE '%$name%' OR categories.ct_name LIKE '%$name%' OR products.pr_brand LIKE '%$name%') AND ((products.cat_id = categories.ct_id) AND (products.pr_id = sales.product_id)) ORDER BY sales.sales_qty DESC";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
         while($result = $stmt->fetchAll()) {

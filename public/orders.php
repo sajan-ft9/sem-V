@@ -77,7 +77,7 @@ if($orders->getSelected($customer_id) > 0){
     ";
 }
 ?>
-
+</div>
 </div>
 
 <?php require_once "layout/footer.php" ?>

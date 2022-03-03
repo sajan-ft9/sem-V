@@ -12,6 +12,7 @@ $ORDERS = new Orders;
         <tr>
             <th>Customer</th>
             <th>Order Date</th>
+            <th>Address</th>
             <th>Action</th>
         </tr>        
     </thead>  
@@ -22,6 +23,7 @@ $ORDERS = new Orders;
                     <tr>
                         <td><?=$details['name']?></td>
                         <td><?=$details['order_date']?></td>
+                        <td><?=$details['order_address']?></td>
                         <td>
                             <form action="showorders.php" method="get">
                                 <input type="hidden" name="cus_id" value="<?=$details['cus_id']?>" required>

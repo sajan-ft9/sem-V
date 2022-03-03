@@ -297,7 +297,10 @@ else:
     }
     function sub() {
         qty = document.getElementById('qty').value;
-        document.getElementById('qty').value =  parseInt(qty) - 1;
+        value = document.getElementById('qty').value =  parseInt(qty) - 1;
+        if(value <= 0){
+            document.getElementById('qty').value = 1;
+        }
         
     }
 </script>

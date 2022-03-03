@@ -41,6 +41,12 @@ class Customer extends Dbh{
         $stmt= $this->connect()->prepare($sql);
         $stmt->execute([$name, $contact, $email, $password, "gmail"]);
     }
+
+    public function changePass($password, $del_id){
+        $sql = "UPDATE customers SET password = ? WHERE email = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$password, $del_id]);
+    }
     
 }
 

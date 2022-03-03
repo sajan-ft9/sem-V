@@ -14,6 +14,8 @@ if($_SERVER['REQUEST_METHOD']==="POST"){
         if($DELIVER->selected($del_user) > 0){       
             if(password_verify($password, $DELIVER->selected($del_user)['password'])){
                 $_SESSION['deliver'] = $DELIVER->selected($del_user)['del_user'];
+                $_SESSION['deliverid'] = $DELIVER->selected($del_user)['del_id'];
+
                 echo "<script>window.location.replace('index.php')</script>";
                 die;
             }else{

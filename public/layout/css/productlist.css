@@ -38,7 +38,7 @@
 
 .p-image img {
     width: 240px;
-    transform: rotate(15deg);
+    /* transform: rotate(15deg); */
     transition: all 0.5s
 }
 

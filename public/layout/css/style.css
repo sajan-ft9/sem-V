@@ -8,13 +8,17 @@
 body {
   background: radial-gradient(rgb(92, 157, 255),rgb(63, 217, 255));
 }
-.container-out{
+.container-out-jhil{
   background:radial-gradient(circle at 1%,rgba(255, 255, 255),rgba(0, 0, 0, 0.1));
-  animation-name: moving;
+    animation-name: moving;
     animation-duration: 7s;
     animation-iteration-count: infinite;
     
 }
+.container-out{
+  background:radial-gradient(circle at 1%,rgba(255, 255, 255),rgba(0, 0, 0, 0.1));
+}
+
 
 @keyframes moving{
   from{ 

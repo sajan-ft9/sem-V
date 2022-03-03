@@ -11,51 +11,63 @@ $cart = new Cart();
 $orders = new Orders();
 if($_SERVER['REQUEST_METHOD'] === "POST"){
     if(isset($_POST['order'])){
-        if(!empty($_POST['street']) && !empty($_POST['city']) && !empty($_POST['zip']) && !empty($_POST['country'])){
-            if($_POST['payment'] === "cash"){
-                $order_address = clean($_POST['street'].','.$_POST['city'].','.$_POST['country'].','.$_POST['zip']);
-                $payment_type = "cash";
-                date_default_timezone_set('Asia/Kathmandu');
-                $order_date = date("Y-m-d H:i:s");
-                $cart_detail = $cart->getAll($customer_id);
-                $bill_no =  "COD-".$customer_id."-".time();
-                if($cart_detail > 0){
-                    foreach($cart_detail as $detail){
-                        $amount = $detail['pr_price'] * $detail['qty'];
-                        $orders->add($customer_id, $detail['product_id'], $detail['qty'], $payment_type, $amount, $order_date, $order_address, $bill_no);
-                        $changeqty = $detail['pr_qty'] - $detail['qty'];
-                        $PROD->updateProductQty($changeqty, $detail['product_id']);
-                    }
-                    $cart->deleteAll($customer_id);
-                    echo "<script>window.location.replace('orders.php')</script>";
-                    die;
-                }else{
-                    echo "<script>window.location.replace('index.php')</script>";
-                    die;                
+        $cart_detail = $cart->getAll($customer_id);
+        $err = "";
+        if($cart_detail > 0){
+            foreach($cart_detail as $detail){
+                if($PROD->checkAvailable($detail['product_id'], $detail['qty'])){
+                    echo $r = "<li style='color:red'>".$PROD->checkAvailable($detail['product_id'], $detail['qty'])." is less than stock. </li>";
+                    $err.= $r;
                 }
-                
             }
-            if($_POST['payment'] === "esewa"){
-                $order_address = clean($_POST['street'].','.$_POST['city'].','.$_POST['country'].','.$_POST['zip']);
-                $_SESSION['address'] = $order_address;
-                $total = $cart->total($customer_id);?>
-                <form action=<?php echo $epay_url?> method="POST">
-                    <input value="<?=$total ?>" name="tAmt" type="hidden">
-                    <input value="<?=$total ?>" name="amt" type="hidden">
-                    <input value="0" name="txAmt" type="hidden">
-                    <input value="0" name="psc" type="hidden">
-                    <input value="0" name="pdc" type="hidden">
-                    <input value=<?php echo $merchant_code?>  name="scd" type="hidden">
-                    <input value="<?php echo $pid?>" name="pid" type="hidden">
-                    <input value=<?php echo $successurl?> type="hidden" name="su">
-                    <input value=<?php echo $failedurl?> type="hidden" name="fu">
-                    <input value="Pay with Esewa Rs <?=$total?>" type="submit" class="btn btn-primary">
-                </form>
-            <?php
-            }
+        }
+        if(empty($err)){
+                    if(!empty($_POST['street']) && !empty($_POST['city']) && !empty($_POST['zip']) && !empty($_POST['country'])){
+                        if($_POST['payment'] === "cash"){
+                            $order_address = clean($_POST['street'].','.$_POST['city'].','.$_POST['country'].','.$_POST['zip']);
+                            $payment_type = "cash";
+                            date_default_timezone_set('Asia/Kathmandu');
+                            $order_date = date("Y-m-d H:i:s");
+                            $bill_no =  "COD-".$customer_id."-".time();
+                            if($cart_detail > 0){
+                                foreach($cart_detail as $detail){
+                                    $amount = $detail['pr_price'] * $detail['qty'];
+                                    $orders->add($customer_id, $detail['product_id'], $detail['qty'], $payment_type, $amount, $order_date, $order_address, $bill_no);
+                                    $changeqty = $detail['pr_qty'] - $detail['qty'];
+                                    $PROD->updateProductQty($changeqty, $detail['product_id']);
+                                }
+                                $cart->deleteAll($customer_id);
+                                echo "<script>window.location.replace('orders.php')</script>";
+                                die;
+                            }else{
+                                echo "<script>window.location.replace('index.php')</script>";
+                                die;                
+                            }
+                            
+                        }
+                        if($_POST['payment'] === "esewa"){
+                            $order_address = clean($_POST['street'].','.$_POST['city'].','.$_POST['country'].','.$_POST['zip']);
+                            $_SESSION['address'] = $order_address;
+                            $total = $cart->total($customer_id);?>
+                            <form action=<?php echo $epay_url?> method="POST">
+                                <input value="<?=$total ?>" name="tAmt" type="hidden">
+                                <input value="<?=$total ?>" name="amt" type="hidden">
+                                <input value="0" name="txAmt" type="hidden">
+                                <input value="0" name="psc" type="hidden">
+                                <input value="0" name="pdc" type="hidden">
+                                <input value=<?php echo $merchant_code?>  name="scd" type="hidden">
+                                <input value="<?php echo $pid?>" name="pid" type="hidden">
+                                <input value=<?php echo $successurl?> type="hidden" name="su">
+                                <input value=<?php echo $failedurl?> type="hidden" name="fu">
+                                <input value="Pay with Esewa Rs <?=$total?>" type="submit" class="btn btn-primary">
+                            </form>
+                        <?php
+                        }
         }else{
             echo "<p style:'color:red'>Please fill all values</p>";
         }
+    }
+
     }
 }
 if($cart->total($customer_id) > 0){

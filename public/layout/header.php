@@ -24,16 +24,32 @@ $category = new Category;
     <title>Home Appliance</title>
 </head>
 <body>
-    <div class="container-out">
+    <script>
+        function change(){
+            x = document.getElementById("jhilmil").className;
+            if(x == 'container-out-jhil'){
+                document.getElementById("jhilmil").className = "container-out";
+            }else if(x == 'container-out'){
+                document.getElementById("jhilmil").className = "container-out-jhil";
+            }else{
+                document.getElementById("jhilmil").className = "container-out";
+            }
+        }
+    </script>
+    <div class="container-out" id="jhilmil">
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light ">
-        <div class="container-fluid pe-lg-2 p-0"> <a class="navbar-brand fw-bold fs-3" href="index.php"><img src="../img/logo.jpeg" alt="Brand Logo" width="50px" >Home Appliances</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+        <div class="container-fluid pe-lg-2 p-0"> <a class="navbar-brand fw-bold fs-3" href="index.php"><img src="../img/logo.jpeg" alt="Brand Logo" width="50px" >Home Appliances</a> 
+        <span title="Change Background" class="me-2 fas fa-adjust" id="jhilmil" onclick="change()"></span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href="index.php">HOME</a> </li>
+                    <?php if(cLogged()){ ?>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="cart.php">CART</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="orders.php">ORDERS</a> </li>
-                    <!-- <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">CONTACT</a> </li> -->
+                    <?php } ?>
+                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="about.php">ABOUT</a> </li>
                     <?php 
                         if(!cLogged()){
                     ?>
@@ -130,18 +146,18 @@ $category = new Category;
                     </form>
                     
                 </div>
-                <?php 
+                <?php
                             if(cLogged()){
                                 $customer = new Customer();
                                 ?>
-                <div class="d-flex align-items-center ms-lg-auto mt-lg-0 mt-3 pe-2"> <span class=" me-2 fas fa-user bg-light rounded-circle"></span>
+                <div class="d-flex align-items-center ms-lg-auto mt-lg-0 mt-3 pe-2"> <span class="me-2 fas fa-user"></span>
                     <div class="d-flex flex-column ps-2">
                         
-                                <p class="fw-bold"><?=$customer->selected($_SESSION['customer'])['name']?></p>
+                                <a href="profile.php" style="text-decoration: none; color:black" class="fw-bold"><?=$customer->selected($_SESSION['customer'])['name']?></a>
                                 <?php
                             }else{
                                 ?>
-                                <div class="d-flex align-items-center ms-lg-auto mt-lg-0 mt-3 pe-2"> <a href="login.php"><span class=" me-2 fas fa-user-slash bg-light rounded-circle"></span></a>
+                                <div class="d-flex align-items-center ms-lg-auto mt-lg-0 mt-3 pe-2"> <a href="login.php"><span class=" me-2 fas fa-user-slash"></span></a>
                     <div class="d-flex flex-column ps-2">
                                 <?php
                             }
