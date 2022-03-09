@@ -18,7 +18,7 @@
               <li><a href="/sem-v/public/cart.php">Cart</a></li>
               <li><a href="/sem-v/public/orders.php">Orders</a></li>
               <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Sitemap</a></li>
+              <!-- <li><a href="#">Sitemap</a></li> -->
             </ul>
           </div>
         </div>

@@ -57,7 +57,7 @@ if($_SERVER['REQUEST_METHOD']== "POST"){
             <button class="btn" type="submit" name="glogin">Login with Google</button>
         </div>
     </form>
-    <div class="text-center fs-6"> <a href="#">Forget password?</a> or <a href="signup.php">Sign up</a> </div>
+    <div class="text-center fs-6"><a href="signup.php">Sign up</a> </div>
 </div>
 </div>
 </div>
